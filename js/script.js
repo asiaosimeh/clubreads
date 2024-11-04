@@ -68,5 +68,5 @@ function pasteData(dataList){
 		
 }
 
-document.getElementById("button").addEventListener("click", myclick);
+document.getElementById("search").addEventListener("click", myclick);
 
