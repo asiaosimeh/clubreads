@@ -32,6 +32,32 @@ function fileType(fileName){
 	return cType;
 }
 
+// A function to translate from shorthand to full notation of book club genre (makes search easier):
+function parseGenreCode(genreCode){
+	let value = "";
+	
+	switch (genreCode) {
+		case "ft":
+			value = "Fantasy";
+			break;
+		case "nf":
+			value = "Non-fiction";
+			break;
+		case "hr":
+			value = "Horror";
+			break;
+		case "rm":
+			value = "Romance";
+			break;
+		case "sf":
+			value = "Science Fiction";
+			break;
+		case "ad":
+			value = "Adventure";
+			break;
+	} // End switch/case
+} // End function
+
 function parseSearch(res, search){
 	// Create new array to hold the results to be sent to the client:
 	let response = [];
