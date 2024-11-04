@@ -13,7 +13,7 @@ const data = [
 	{"name" : "Adventure Wranglers", "topic" : "Adventure", "author" : "", "loc" : "North East"},
 	{"name" : "Matchmakers", "topic" : "Romance", "author" : "", "loc" : "North West"},
 	{"name" : "Spooky Books Inc.", "topic" : "Horror", "author" : "", "loc" : "South West"},
-	{"name" : "Autobiographicals Book Club", "topic" : "Non-Fiction", "author" : "", "loc" : "North East"}
+	{"name" : "Autobiographicals Book Club", "topic" : "Non-fiction", "author" : "", "loc" : "North East"}
 
 ]
 console.log(data);
@@ -55,6 +55,9 @@ function parseGenreCode(genreCode){
 		case "ad":
 			value = "Adventure";
 			break;
+		case "empty":
+			value = "";
+			break;
 	} // End switch/case
 
 	return value;
@@ -77,6 +80,9 @@ function parseLocCode(locCode){
 		case "SW":
 			value = "South West";
 			break;
+		case "empty":
+			value = "";
+			break;
 	} // End switch/case
 
 	return value;
@@ -87,9 +93,9 @@ function parseSearch(res, search){
 	let response = [];
 	
 	// Firugre out how may constraints are used:
-	let topicGiven = !(search.topic == ""); // Record whether or not a topic was given
+	let topicGiven = search.topic=="empty" ? false : true; // Record whether or not a topic was given
 	let authorGiven = !(search.author == ""); // Record whether or not an author was given
-	let locGiven = !(search.loc == ""); // Record whether or not a location was given
+	let locGiven = search.loc=="empty" ? false : true; // Record whether or not a location was given
 	
 	console.log(topicGiven, authorGiven, locGiven, "'", search.loc, "'");
 	
