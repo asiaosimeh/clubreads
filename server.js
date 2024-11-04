@@ -32,7 +32,7 @@ function fileType(fileName){
 	return cType;
 }
 
-// A function to translate from shorthand to full notation of book club genre (makes search easier):
+// A function to translate from shorthand to full notation of book club GENRE (makes search easier):
 function parseGenreCode(genreCode){
 	let value = "";
 	
@@ -56,6 +56,30 @@ function parseGenreCode(genreCode){
 			value = "Adventure";
 			break;
 	} // End switch/case
+
+	return value;
+} // End function
+
+// A function to translate from shorthand to full notation of book club LOCATION (makes search easier):
+function parseLocCode(locCode){
+	let value = "";
+	
+	switch (locCode) {
+		case "NE":
+			value = "North East";
+			break;
+		case "SE":
+			value = "South East";
+			break;
+		case "NW":
+			value = "North West";
+			break;
+		case "SW":
+			value = "South West";
+			break;
+	} // End switch/case
+
+	return value;
 } // End function
 
 function parseSearch(res, search){
@@ -74,22 +98,22 @@ function parseSearch(res, search){
 		// Check for matches, taking into account all available constraints the user has set.
 		console.log("TYPE OF 'E': " + typeof(e));
 		// All constraints used:
-		if (topicGiven && authorGiven && locGiven && e.topic == search.topic && e.author == search.author && e.loc == search.loc){
+		if (topicGiven && authorGiven && locGiven && e.topic == parseGenreCode(search.topic) && e.author == search.author && e.loc == parseLocCode(search.loc)){
 			console.log("MATCH FOUND -- ALL");
 			response.push(JSON.stringify(e));
-		} else if (!topicGiven && authorGiven && locGiven && e.author == search.author && e.loc == search.loc){
+		} else if (!topicGiven && authorGiven && locGiven && e.author == search.author && e.loc == parseLocCode(search.loc)){
 			// All but TOPIC
 			console.log("MATCH FOUND -- author&loc");
 			response.push(JSON.stringify(e));
-		} else if (topicGiven && !authorGiven && locGiven && e.topic == search.topic && e.loc == search.loc){
+		} else if (topicGiven && !authorGiven && locGiven && e.topic == parseGenreCode(search.topic) && e.loc == parseLocCode(search.loc)){
 			// All but AUTHOR
 			console.log("MATCH FOUND -- topic&loc");
 			response.push(JSON.stringify(e));
-		} else if (topicGiven && authorGiven && !locGiven && e.topic == search.topic && e.author == search.author){
+		} else if (topicGiven && authorGiven && !locGiven && e.topic == parseGenreCode(search.topic) && e.author == search.author){
 			// All but LOCATION
 			console.log("MATCH FOUND -- topic&author");
 			response.push(JSON.stringify(e));
-		} else if (topicGiven && !authorGiven && !locGiven && e.topic == search.topic){
+		} else if (topicGiven && !authorGiven && !locGiven && e.topic == parseGenreCode(search.topic)){
 			// ONLY TOPIC
 			console.log("MATCH FOUND -- ONLY topic");
 			response.push(JSON.stringify(e));
@@ -97,7 +121,7 @@ function parseSearch(res, search){
 			// ONLY AUTHOR
 			console.log("MATCH FOUND -- ONLY author");
 			response.push(JSON.stringify(e));
-		} else if (!topicGiven && !authorGiven && locGiven && e.loc == search.loc){
+		} else if (!topicGiven && !authorGiven && locGiven && e.loc == parseLocCode(search.loc)){
 			// ONLY LOCATION
 			console.log("MATCH FOUND -- ONLY location");
 			response.push(JSON.stringify(e));
