@@ -7,10 +7,13 @@ const url = require('url');
 
 // Define the (temporarily here) databank that the client can request from:
 const data = [
-	{"name" : "Harry Potter Reading Group", "topic" : "Harry Potter", "author" : "J. K. Rowling", "loc" : "Townville Library Meeting Room"},
-	{"name" : "SciFi Readers", "topic" : "Science Fiction", "author" : "", "loc" : "Community Center"},
-	{"name" : "Donna's Amazing Book Club", "topic" : "Adventure", "author" : "", "loc" : "50 Main Street"},
-	{"name" : "Adventure Wranglers", "topic" : "Adventure", "author" : "", "loc" : "Community Center"}
+	{"name" : "Harry Potter Reading Group", "topic" : "Fantasy", "author" : "J. K. Rowling", "loc" : "North East"},
+	{"name" : "SciFi Readers", "topic" : "Science Fiction", "author" : "", "loc" : "South East"},
+	{"name" : "Donna's Amazing Book Club", "topic" : "Adventure", "author" : "", "loc" : "South West"},
+	{"name" : "Adventure Wranglers", "topic" : "Adventure", "author" : "", "loc" : "North East"},
+	{"name" : "Matchmakers", "topic" : "Romance", "author" : "", "loc" : "North West"},
+	{"name" : "Spooky Books Inc.", "topic" : "Horror", "author" : "", "loc" : "South West"},
+	{"name" : "Autobiographicals Book Club", "topic" : "Non-Fiction", "author" : "", "loc" : "North East"}
 
 ]
 console.log(data);
