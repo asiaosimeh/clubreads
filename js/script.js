@@ -7,9 +7,9 @@
 let urlPrefix = "http://35.196.73.111";
 
 function myclick(){
-	let topic = document.getElementById("topic").value;
+	let topic = document.getElementById("SearchMenu")["genre"].value;
 	let author = document.getElementById("author").value;
-	let loc = document.getElementById("location").value;
+	let loc = document.getElementById("SearchMenu")["loc"].value;
 	
 	console.log("INPUT:\n");
 	console.log(topic);
