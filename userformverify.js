@@ -33,4 +33,9 @@ function validEmail(){
 	}
 }
 
+document.getElementById("submitBtn").addEventListener("click", function (){
+	validEmail();
+	userPass();
+});
+
 console.log("The verification js file");
