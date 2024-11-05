@@ -19,7 +19,7 @@ function userPass(){
 
 function validEmail(){
 	
-	let emailUser = document.getElementById('user').value;
+	let emailUser = document.getElementById('email').value;
 		
 	let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 	
