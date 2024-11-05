@@ -20,16 +20,11 @@ function userPass(){
 function validEmail(){
 	
 	let emailUser = document.getElementById('user').value;
-	
-	let message = document.getElementById('results').value;
-	
+		
 	let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 	
-	if (emailRegex.test(emailUser)){
-		message.textContent = "";
-		
-	} else{
-		message.textContent = "Please enter a valid email address";
+	if (!emailRegex.test(emailUser)){
+		window.alert("Please enter a valid email address");
 	}
 }
 
