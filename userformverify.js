@@ -3,18 +3,14 @@
 function userPass(){
 	let pass = document.getElementById('pass').value;
 	let repeatpass = document.getElementById('repeat').value;
-
-
 	
-	if (pass === repeatpass){
+	if (pass == "" || repeatpass == ""){
+		window.alert("Please fill out both password fields.");
+	} else if (pass === repeatpass){
 		window.alert("Passwords match!");
 	} else {
 		window.alert("Passwords do not match, please enter same password");
-		}
-	
-	
-	let message = document.getElementById("results").value;
-	
+	}	
 }
 
 function validEmail(){
