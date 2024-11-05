@@ -7,9 +7,9 @@ function userPass(){
 
 	
 	if (pass === repeatpass){
-		console.log("Passwords match!");
+		window.alert("Passwords match!");
 	} else {
-		console.log("Passwords do not match, please enter same password");
+		window.alert("Passwords do not match, please enter same password");
 		}
 	
 	
