@@ -11,7 +11,11 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #81241f;
+  /*background-color: #81241f;*/
+  background-image: url('../../public/loginBackground.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .login-container {
@@ -63,6 +67,6 @@ button:hover {
 
 #loginMessage {
   margin-top: 15px;
-  font size: 14px;
+  font-size: 14px;
   color: black;
 }
