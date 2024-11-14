@@ -168,7 +168,7 @@ serveStatic = function (req, res) {
 	q = url.parse(req.url, true);
 	
 	let fileName = q.pathname;
-	fileName = fileName == "/" ? "/index.html" : fileName;
+	fileName = fileName == "/" ? "../pages/index.html" : fileName;
 	console.log("FILENAME ", fileName);
 
 	switch (fileName){
