@@ -9,7 +9,7 @@ const connectionObj = {
 	host	 : '35.237.115.8',
 	user	 : 'asiaosimeh',
 	password : 'clubreads2024',
-	database : 'NAME',
+	database : 'BookClubDB',
 	connectionLimit : 10
 }
 
@@ -103,10 +103,10 @@ function parseSearch(res, search){
 	
 	// If 'response' is empty, meaning no matches were found, return a JSON object informing the cilent that no matches were found (I picked sending an object with value of "NULL"):
 	if (response.length == 0){
-		response.push('{"name" : "NULL"}'); // Place the special 'flag' value for 'no match' into the response array (bc the client is expecting to get an array)
+		let out = ('{"name" : "NULL"}'); // Place the special 'flag' value for 'no match' into the response array (bc the client is expecting to get an array)
 
 		res.writeHead(200, {'Content-Type' : 'application/json'});
-		res.write(JSON.stringify(response));
+		res.write(JSON.stringify(out));
 		res.end();
 	} else{ // Otherwise, if at least one search match was found, return all matches found:
 		console.log("LENGTH " + response.length);
@@ -121,7 +121,7 @@ function parseSearch(res, search){
 
 
 function rtrvDB(topic, author, loc) {
-	let queryString = ""; // Populate later with the SQL query string
+	let queryString = "SELECT * FROM Clubs "; // Populate later with the SQL query string
 
 	let response = ""; // Populate later with what will be returned to the user
 	
@@ -130,25 +130,27 @@ function rtrvDB(topic, author, loc) {
 	/////
 	
 	// NONE GIVEN (send all to the client):
-	if (topic == "NULL" && author == "NULL" && loc == "NULL") { queryString = "SELECT * FROM table;"; }
+	if (topic == "empty" && author == "" && loc == "empty") { queryString += ";"; }
 	// ALL GIVEN:
-	else if (topic != "NULL" && author != "NULL" && loc != "NULL") { queryString = "SELECT * FROM table WHERE topic='" + topic + "' AND author='" + author + "' AND loc='" + loc + "';"; }
+	else if (topic != "empty" && author != "" && loc != "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND author='" + author + "' AND region='" + parseLocCode(loc) + "';"; }
 	// ALL BUT TOPIC:
-	else if (topic == "NULL" && author != "NULL" && loc != "NULL") { queryString = "SELECT * FROM table WHERE author='" + author + "' AND loc='" + "';"; }
+	else if (topic == "empty" && author != "" && loc != "empty") { queryString += "WHERE author='" + author + "' AND region='" + parseLocCode(loc) + "';"; }
 	// ALL BUT AUTHOR:
-	else if (topic != "NULL" && author == "NULL" && loc != "NULL") { queryString = "SELECT * FROM table WHERE topic='" + "' AND loc='" + loc + "';"; }
+	else if (topic != "empty" && author == "" && loc != "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND region='" + parseLocCode(loc) + "';"; }
 	// ALL BUT LOCATION:
-	else if (topic != "NULL" && author != "NULL" && loc == "NULL") { queryString = "SELECT * FROM table WHERE topic='" + topic + "' AND author='" + "';"; }
+	else if (topic != "empty" && author != "" && loc == "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND author='" + author + "';"; }
 	// ONLY TOPIC:
-	else if (topic != "NULL" && author == "NULL" && loc == "NULL") { queryString = "SELECT * FROM table WHERE topic='" + topic + "';"; }
+	else if (topic != "empty" && author == "" && loc == "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "';"; }
 	// ONLY AUTHOR:
-	else if (topic == "NULL" && author != "NULL" && loc == "NULL") { queryString = "SELECT * FROM table WHERE author='" + author + "';"; }
+	else if (topic == "empty" && author != "" && loc == "empty") { queryString += "WHERE author='" + author + "';"; }
 	// ONLY LOCATION:
-	else if (topic == "NULL" && author == "NULL" && loc != "NULL") { queryString = "SELECT * FROM table WHERE loc='" + loc + "';"; }
-
-	connection_pool.query(queryString, function () {
+	else if (topic == "empty" && author == "" && loc != "empty") { queryString += "WHERE region='" + parseLocCode(loc) + "';"; }
+	
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(queryString, function (error, results, fields) {
 		if (error) {
 			console.log("ERROR: ", error);
+			console.log("RESPONSE: ", response);
 			connection_pool.end();
 		} else {
 			console.log("CONNECTION SUCCESS -- PLEASE FINISH CODE HERE");
