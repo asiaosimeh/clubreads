@@ -173,7 +173,20 @@ serveStatic = function (req, res) {
 	q = url.parse(req.url, true);
 	
 	let fileName = q.pathname;
-	fileName = fileName == "/" ? "./pages/index.html" : fileName;
+	console.log(fileName);
+	
+	let patternJS = /.js$/;
+	let patternCSS = /.css$/;
+	let patternHTML = /.html$/;
+	let patternIMG = /(.png|.jpg)$/;
+
+	// Add appropriate path prefix to files by the file type:
+	if (fileName == "/" || fileName == "/index.html") fileName = "./index.html"; // If no file name is specified in the query, send  the index page
+	else if (patternJS.test(fileName)) fileName = "./src/js" + fileName;
+	else if (patternCSS.test(fileName)) fileName = "./src/css" + fileName;
+	else if (patternHTML.test(fileName)) fileName = "./src/pages" + fileName;
+	else if (patternIMG.test(fileName)) fileName = "./public" + fileName;
+
 	console.log("FILENAME ", fileName);
 
 	switch (fileName){
@@ -182,7 +195,6 @@ serveStatic = function (req, res) {
 		case "/favicon.ico":
 				break;
 		default:
-			fileName = '.' + fileName;
 			fs.readFile(fileName, function(err, content){
         		        console.log(err);
 				if (err) {
