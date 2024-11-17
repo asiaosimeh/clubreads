@@ -6,26 +6,15 @@ const url = require('url');
 const mysql = require('mysql2');
 
 const connectionObj = {
-	host	 : '35.237.115.8',
-	user	 : 'asiaosimeh',
-	password : 'clubreads2024',
-	database : 'BookClubDB',
-	connectionLimit : 10
+	host	        : '35.237.115.8',
+	user	        : 'asiaosimeh',
+	password        : 'clubreads2024',
+	database        : 'BookClubDB',
+	connectionLimit : 10,
+	rowsAsArray     : true
 }
 
-// Define the (temporarily here) databank that the client can request from:
-const data = [
-	{"name" : "Harry Potter Reading Group", "topic" : "Fantasy", "author" : "J. K. Rowling", "loc" : "North East"},
-	{"name" : "SciFi Readers", "topic" : "Science Fiction", "author" : "", "loc" : "South East"},
-	{"name" : "Donna's Amazing Book Club", "topic" : "Adventure", "author" : "", "loc" : "South West"},
-	{"name" : "Adventure Wranglers", "topic" : "Adventure", "author" : "", "loc" : "North East"},
-	{"name" : "Matchmakers", "topic" : "Romance", "author" : "", "loc" : "North West"},
-	{"name" : "Spooky Books Inc.", "topic" : "Horror", "author" : "", "loc" : "South West"},
-	{"name" : "Autobiographicals Book Club", "topic" : "Non-fiction", "author" : "", "loc" : "North East"}
-
-]
-console.log(data);
-// Define empty, to be used in 'fileType' function:
+// Define an empty variable, to be used in 'fileType' function below:
 let cType = "";
 
 function fileType(fileName){
@@ -100,30 +89,20 @@ function parseLocCode(locCode){
 function parseSearch(res, search){
 	
 	let response = rtrvDB(search.topic, search.author, search.loc);
+	console.log("RESPONSE FROM DB: ", response);
+	console.log(typeof(response));
 	
-	// If 'response' is empty, meaning no matches were found, return a JSON object informing the cilent that no matches were found (I picked sending an object with value of "NULL"):
-	if (response.length == 0){
-		let out = ('{"name" : "NULL"}'); // Place the special 'flag' value for 'no match' into the response array (bc the client is expecting to get an array)
-
-		res.writeHead(200, {'Content-Type' : 'application/json'});
-		res.write(JSON.stringify(out));
-		res.end();
-	} else{ // Otherwise, if at least one search match was found, return all matches found:
-		console.log("LENGTH " + response.length);
-		res.writeHead(200, {'Content-Type' : 'application/json'});
-		res.write(JSON.stringify(response));
-		res.end();
-		
-		console.log(JSON.stringify(response));
-		console.log(typeof( JSON.stringify(response) ));
-	}
+	// Return matches found to the client:
+	res.writeHead(200, {'Content-Type' : 'text/plain'});
+	res.write(response);
+	res.end();
 }
 
 
 function rtrvDB(topic, author, loc) {
 	let queryString = "SELECT * FROM Clubs "; // Populate later with the SQL query string
 
-	let response = ""; // Populate later with what will be returned to the user
+	let response = "NULL"; // Make "NULL" for now; if matching results are found, reassign this var to equal the results found
 	
 	/////
 	// Check what fields were passed by the user, and create the SQL query accordingly:
@@ -150,20 +129,21 @@ function rtrvDB(topic, author, loc) {
 	connection_pool.query(queryString, function (error, results, fields) {
 		if (error) {
 			console.log("ERROR: ", error);
-			console.log("RESPONSE: ", response);
-			connection_pool.end();
+			console.log("ERROR RESPONSE: ", results);
 		} else {
-			console.log("CONNECTION SUCCESS -- PLEASE FINISH CODE HERE");
-			connection_pool.end();
+			console.log("CONNECTION SUCCESS");
+			
+			console.log(results);
 
-			response = ""; //EDIT THIS, THIS IS TO BE RETURNED T 'parseQuery'!
+			response = results.toString();
+			console.log("RESPONSE BEFORE SENDING ", response);
+			console.log(typeof(response));
+			return response;
+			
 		} // End if/else block
 	
 	}); //call back function
 	
-//	connection_pool.end();  // Connection is closed in the above '.query' function
-	
-	return response;
 }
 
 

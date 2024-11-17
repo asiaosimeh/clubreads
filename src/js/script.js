@@ -23,7 +23,7 @@ function myclick(){
 	fetch(reqUrl)
 		.then(response => {
 			if (!response.ok) {throw new Error("Network response not ok.");}
-			return response.json();
+			return response;
 		})
 		.then(data => {
 			console.log("RECIEVED: ", data);
@@ -38,15 +38,15 @@ function myclick(){
 }
 
 function pasteData(dataList){
-		console.log("Pasting...");
+		console.log("Pasting...", dataList);
 		
 		// Get the ouput span-element for printing to the screen:
 		let outputBin = document.getElementById("out");
 		
 		// Remove whitespace, then parse the object sent back from the server (It gives errors if whitespace is not removed):
-		let obj = JSON.parse( JSON.stringify(dataList).trim() );
+		/*let obj = JSON.parse( JSON.stringify(dataList).trim() );
 		console.log("OBJ" + obj, "DATALSIT " + dataList);
-		console.log(typeof(obj), (obj.name));
+		console.log(typeof(obj), (obj.name));*/
 
 		// IF there were matches found to the user's search, then parse and output the response from the server:	
 		outputBin.innerHTML = "<h2>Book clubs matching search:</h2>";
@@ -54,16 +54,14 @@ function pasteData(dataList){
 		for (e of dataList){
 			console.log("ELEMENT: ", e);
 			
-			e = JSON.parse(e);
-			
-			if (e.name == "NULL") {
+			if (e == "NULL") {
 				outputBin.innerHTML = "<h2>No results found.</h2>";
 				break;
 			}
 			
 			// Remove any previous output from prior searches, and output the new results to the page:
 			
-			outputBin.innerHTML += "<p>" + e.name + "</p>";
+			outputBin.innerHTML += "<p>" + e + "</p>";
 		}
 		
 }
