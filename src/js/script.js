@@ -4,7 +4,7 @@
  *
  */
 
-let urlPrefix = "http://35.196.73.111";
+let urlPrefix = "http://34.23.105.171";
 
 function myclick(){
 	let topic = document.getElementById("genre").value;
@@ -14,7 +14,7 @@ function myclick(){
 	console.log("INPUT:\n");
 	console.log(topic);
 	console.log(author);
-	console.log(topic);
+	console.log(loc);
 	console.log("\n");
 
 	let reqUrl = urlPrefix + "/search?" + "topic=" + topic + "&author=" + author + "&loc=" + loc;
@@ -23,7 +23,7 @@ function myclick(){
 	fetch(reqUrl)
 		.then(response => {
 			if (!response.ok) {throw new Error("Network response not ok.");}
-			return response;
+			return response.json();
 		})
 		.then(data => {
 			console.log("RECIEVED: ", data);
@@ -51,7 +51,13 @@ function pasteData(dataList){
 		// IF there were matches found to the user's search, then parse and output the response from the server:	
 		outputBin.innerHTML = "<h2>Book clubs matching search:</h2>";
 		
-		for (e of dataList){
+		if (!Array.isArray(dataList)) {
+			console.error("Data is not an array:", dataList);
+			outputBin.innerHTML="<h2>No results found.</h2>";
+			return;
+		}
+		
+		for (let e of dataList){
 			console.log("ELEMENT: ", e);
 			
 			if (e == "NULL") {

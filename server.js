@@ -87,23 +87,23 @@ function parseLocCode(locCode){
 } // End function
 
 function parseSearch(res, search){
-	
-	let response = rtrvDB(search.topic, search.author, search.loc);
-	console.log("RESPONSE FROM DB: ", response);
-	console.log(typeof(response));
-	
-	// Return matches found to the client:
-	res.writeHead(200, {'Content-Type' : 'text/plain'});
-	res.write(response);
-	res.end();
+	rtrvDB(search.topic,search.author,search.loc, (err,results) =>{
+		if (err) {
+			res.writeHead(500, {'Content-Type': 'text/plain'});
+			res.write("Database error occurred");
+			res.end();
+		} else {
+			res.writeHead(200, {'Content-Type':'application/json'});
+			res.write(JSON.stringify(results)); //sends the rsults as JSON
+			res.end();
+		}
+	});
 }
 
 
-function rtrvDB(topic, author, loc) {
+function rtrvDB(topic, author, loc, callback) {
 	let queryString = "SELECT * FROM Clubs "; // Populate later with the SQL query string
 
-	let response = "NULL"; // Make "NULL" for now; if matching results are found, reassign this var to equal the results found
-	
 	/////
 	// Check what fields were passed by the user, and create the SQL query accordingly:
 	/////
@@ -125,20 +125,18 @@ function rtrvDB(topic, author, loc) {
 	// ONLY LOCATION:
 	else if (topic == "empty" && author == "" && loc != "empty") { queryString += "WHERE region='" + parseLocCode(loc) + "';"; }
 	
+	console.log("Generated Query:", queryString); //debugging
+
 	let connection_pool = mysql.createPool(connectionObj);
-	connection_pool.query(queryString, function (error, results, fields) {
+	connection_pool.query(queryString, function (error, results) {
 		if (error) {
 			console.log("ERROR: ", error);
-			console.log("ERROR RESPONSE: ", results);
+			callback(error,null); //passes the error to the callback
 		} else {
 			console.log("CONNECTION SUCCESS");
 			
 			console.log(results);
-
-			response = results.toString();
-			console.log("RESPONSE BEFORE SENDING ", response);
-			console.log(typeof(response));
-			return response;
+			callback(null, results);
 			
 		} // End if/else block
 	
