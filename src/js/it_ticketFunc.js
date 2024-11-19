@@ -37,6 +37,13 @@ document.getElementById("listTickets").addEventListener("click", function(){
 		})
 		.then(data => {
 			console.log("RECIEVED: ", data);
+			let outputBin = document.getElementById("out");
+			outputBin.innerHTML = "<br><h2>TICKETS:</h2><br>";
+			for (e of data) {
+				outputBin.innerHTML += "<p><strong>Email:</strong> " + e.email + "</p>";
+				outputBin.innerHTML += "<p><strong>Title:</strong> " + e.ticket_title + "</p>";
+				outputBin.innerHTML += "<p><strong>Issue description:</strong> " + e.issue + "</p><hr>";
+			}
 		})
 		.catch(error => {
 			console.error("Error with fetch operation: ", error);
