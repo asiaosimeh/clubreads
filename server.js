@@ -37,8 +37,8 @@ function parseGenreCode(genreCode){
 		case "ft":
 			value = "Fantasy";
 			break;
-		case "nf":
-			value = "Non-fiction";
+		case "myst":
+			value = "Mystery";
 			break;
 		case "hr":
 			value = "Horror";
@@ -47,10 +47,31 @@ function parseGenreCode(genreCode){
 			value = "Romance";
 			break;
 		case "sf":
-			value = "Science Fiction";
+			value = "Sci-Fi";
 			break;
 		case "ad":
 			value = "Adventure";
+			break;
+		case "hst":
+			value = "Historical";
+			break;
+		case "cmd":
+			value = "Comedy";
+			break;
+		case "dm":
+			value = "Drama";
+			break;
+		case "bio":
+			value = "Biography";
+			break;
+		case "self":
+			value = "Self-Help";
+			break;
+		case "cook":
+			value = "Cooking";
+			break;
+		case "trv":
+			value = "Travel";
 			break;
 		case "empty":
 			value = "";
@@ -67,17 +88,19 @@ function parseLocCode(locCode){
 	
 	switch (locCode) {
 		case "NE":
-			value = "North East";
+			value = "Northeast";
 			break;
 		case "SE":
-			value = "South East";
+			value = "Southeast";
 			break;
 		case "NW":
-			value = "North West";
+			value = "Northwest";
 			break;
 		case "SW":
-			value = "South West";
+			value = "Southwest";
 			break;
+		case "MW":
+			value = "Midwest";
 		case "empty":
 			value = "";
 			break;

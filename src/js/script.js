@@ -4,7 +4,7 @@
  *
  */
 
-let urlPrefix = "http://34.23.105.171";
+let urlPrefix = "http://35.196.73.111";
 
 function myclick(){
 	let topic = document.getElementById("genre").value;
@@ -55,20 +55,18 @@ function pasteData(dataList){
 			console.error("Data is not an array:", dataList);
 			outputBin.innerHTML="<h2>No results found.</h2>";
 			return;
-		}
-		
-		for (let e of dataList){
-			console.log("ELEMENT: ", e);
-			
-			if (e == "NULL") {
-				outputBin.innerHTML = "<h2>No results found.</h2>";
-				break;
+		} else if (dataList.length == 0) {
+			console.log("Empty response.");
+			outputBin.innerHTML = "<h2>No results found.</h2>";
+		} else{	
+			for (let e of dataList){
+				console.log("ELEMENT: ", e);
+					
+				// Remove any previous output from prior searches, and output the new results to the page:
+				
+				outputBin.innerHTML += "<p><strong>" + e[1] + "</strong> | <strong>Meets:</strong> " + e[5] + "; <strong>Region:</strong> " + e[6] + "; <strong>Current book:</strong> " + e[2] + " by " + e[3] + "</p>";
 			}
-			
-			// Remove any previous output from prior searches, and output the new results to the page:
-			
-			outputBin.innerHTML += "<p>" + e + "</p>";
-		}
+		} // End if/else-if/else block
 		
 }
 
