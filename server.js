@@ -176,10 +176,14 @@ function rtrvDB(topic, author, loc) {
 
 
 function sendTicket(res, req){
-	// If these are empty, replace them with a space (necessary for proper uery):
-	req.email = req.email=="" ? " " : req.email;
-	req.title = req.title=="" ? " " : req.title;
-	req.issue = req.issue=="" ? " " : req.issue;
+	//ASHLEY TROUBLESHOOT 11/19
+	//ensuring all fields are filled in to avoid invalid or empty values into the database
+	//if any field is empty, send an error to the client
+	if (!req.email || !req.title || !req.issue){
+		res.writeHead(400, {'Content-Type' : 'application/json'});
+		res.end(JSON.stringfy({error: "Must fill the require fields. Please attempt again with email, title, and issue."}));
+		return;
+	}
 
 	let queryString = "INSERT INTO it_ticket_form VALUES ('" + req.email + "', '" + req.title + "', '" + req.issue + "');";
 	console.log(queryString);
@@ -187,14 +191,18 @@ function sendTicket(res, req){
 	let connection_pool = mysql.createPool(connectionObj_IT);
 	connection_pool.query(queryString, function (error, results) {
 		if (error) {
+			 //this handles the SQL query erros by loging to debug and send 500 error to client
+			//hopefully this works
 			console.log("ERROR: ", error);
+			res.writeHead(500, {'Content-Type' : 'application/json'});
+			res.end(JSON.stringfy({ error: "Database error occurred."}));
 		} else {
 			console.log("CONNECTION SUCCESS");
 
 			console.log(results);
 			res.writeHead(200, {'Content-Type': 'application/json'});
-			res.write(JSON.stringify(results));
-			res.end();
+			res.end(JSON.stringify(results));
+			
 		} // End if/else
 	}); // Callback function*/
 }
