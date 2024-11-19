@@ -3,7 +3,15 @@
 const http = require('http');
 const fs = require('fs');
 const url = require('url');
-//call back function
+const mysql = require('mysql2');
+
+const connectionObj = {
+	host	 : '35.237.115.8',
+	user	 : 'asiaosimeh',
+	password : 'clubreads2024',
+	database : 'BookClubDB',
+	connectionLimit : 10
+}
 
 // Define the (temporarily here) databank that the client can request from:
 const data = [
@@ -63,6 +71,7 @@ function parseGenreCode(genreCode){
 	return value;
 } // End function
 
+
 // A function to translate from shorthand to full notation of book club LOCATION (makes search easier):
 function parseLocCode(locCode){
 	let value = "";
@@ -89,68 +98,15 @@ function parseLocCode(locCode){
 } // End function
 
 function parseSearch(res, search){
-	// Create new array to hold the results to be sent to the client:
-	let response = [];
 	
-	// Firugre out how may constraints are used:
-	let topicGiven = search.topic=="empty" ? false : true; // Record whether or not a topic was given
-	let authorGiven = !(search.author == ""); // Record whether or not an author was given
-	let locGiven = search.loc=="empty" ? false : true; // Record whether or not a location was given
-	
-	console.log(topicGiven, authorGiven, locGiven, "'", search.loc, "'");
-	
-	// Run checks against every book club entry:
-	for (e of data){
-		// Check for matches, taking into account all available constraints the user has set.
-		console.log("TYPE OF 'E': " + typeof(e));
-		// All constraints used:
-		if (topicGiven && authorGiven && locGiven && e.topic == parseGenreCode(search.topic) && e.author == search.author && e.loc == parseLocCode(search.loc)){
-			console.log("MATCH FOUND -- ALL");
-			response.push(JSON.stringify(e));
-		} else if (!topicGiven && authorGiven && locGiven && e.author == search.author && e.loc == parseLocCode(search.loc)){
-			// All but TOPIC
-			console.log("MATCH FOUND -- author&loc");
-			response.push(JSON.stringify(e));
-		} else if (topicGiven && !authorGiven && locGiven && e.topic == parseGenreCode(search.topic) && e.loc == parseLocCode(search.loc)){
-			// All but AUTHOR
-			console.log("MATCH FOUND -- topic&loc");
-			response.push(JSON.stringify(e));
-		} else if (topicGiven && authorGiven && !locGiven && e.topic == parseGenreCode(search.topic) && e.author == search.author){
-			// All but LOCATION
-			console.log("MATCH FOUND -- topic&author");
-			response.push(JSON.stringify(e));
-		} else if (topicGiven && !authorGiven && !locGiven && e.topic == parseGenreCode(search.topic)){
-			// ONLY TOPIC
-			console.log("MATCH FOUND -- ONLY topic");
-			response.push(JSON.stringify(e));
-		} else if (!topicGiven && authorGiven && !locGiven && e.author == search.author){
-			// ONLY AUTHOR
-			console.log("MATCH FOUND -- ONLY author");
-			response.push(JSON.stringify(e));
-		} else if (!topicGiven && !authorGiven && locGiven && e.loc == parseLocCode(search.loc)){
-			// ONLY LOCATION
-			console.log("MATCH FOUND -- ONLY location");
-			response.push(JSON.stringify(e));
-		} else if (!topicGiven && !authorGiven && !locGiven) { 
-			// NO CONSTRAINTS PASSED
-			console.log("NO CONSTRAINTS");
-			// Append all book club listings to the response array:
-			for (element of data) {
-				response.push(JSON.stringify(element)); 
-			}
-			break; // If the user entered no constraints, then no need to keep checking anything else
-		}
-			
-	} // End loop
-
-	console.log("RESPONSE ", response, typeof(response));
+	let response = rtrvDB(search.topic, search.author, search.loc);
 	
 	// If 'response' is empty, meaning no matches were found, return a JSON object informing the cilent that no matches were found (I picked sending an object with value of "NULL"):
 	if (response.length == 0){
-		response.push('{"name" : "NULL"}'); // Place the special 'flag' value for 'no match' into the response array (bc the client is expecting to get an array)
+		let out = ('{"name" : "NULL"}'); // Place the special 'flag' value for 'no match' into the response array (bc the client is expecting to get an array)
 
 		res.writeHead(200, {'Content-Type' : 'application/json'});
-		res.write(JSON.stringify(response));
+		res.write(JSON.stringify(out));
 		res.end();
 	} else{ // Otherwise, if at least one search match was found, return all matches found:
 		console.log("LENGTH " + response.length);
@@ -164,11 +120,73 @@ function parseSearch(res, search){
 }
 
 
+function rtrvDB(topic, author, loc) {
+	let queryString = "SELECT * FROM Clubs "; // Populate later with the SQL query string
+
+	let response = ""; // Populate later with what will be returned to the user
+	
+	/////
+	// Check what fields were passed by the user, and create the SQL query accordingly:
+	/////
+	
+	// NONE GIVEN (send all to the client):
+	if (topic == "empty" && author == "" && loc == "empty") { queryString += ";"; }
+	// ALL GIVEN:
+	else if (topic != "empty" && author != "" && loc != "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND author='" + author + "' AND region='" + parseLocCode(loc) + "';"; }
+	// ALL BUT TOPIC:
+	else if (topic == "empty" && author != "" && loc != "empty") { queryString += "WHERE author='" + author + "' AND region='" + parseLocCode(loc) + "';"; }
+	// ALL BUT AUTHOR:
+	else if (topic != "empty" && author == "" && loc != "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND region='" + parseLocCode(loc) + "';"; }
+	// ALL BUT LOCATION:
+	else if (topic != "empty" && author != "" && loc == "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND author='" + author + "';"; }
+	// ONLY TOPIC:
+	else if (topic != "empty" && author == "" && loc == "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "';"; }
+	// ONLY AUTHOR:
+	else if (topic == "empty" && author != "" && loc == "empty") { queryString += "WHERE author='" + author + "';"; }
+	// ONLY LOCATION:
+	else if (topic == "empty" && author == "" && loc != "empty") { queryString += "WHERE region='" + parseLocCode(loc) + "';"; }
+	
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(queryString, function (error, results, fields) {
+		if (error) {
+			console.log("ERROR: ", error);
+			console.log("RESPONSE: ", response);
+			connection_pool.end();
+		} else {
+			console.log("CONNECTION SUCCESS -- PLEASE FINISH CODE HERE");
+			connection_pool.end();
+
+			response = ""; //EDIT THIS, THIS IS TO BE RETURNED T 'parseQuery'!
+		} // End if/else block
+	
+	}); //call back function
+	
+//	connection_pool.end();  // Connection is closed in the above '.query' function
+	
+	return response;
+}
+
+
+
+// Main function, decides which other function to call to server the client's request:
 serveStatic = function (req, res) {
 	q = url.parse(req.url, true);
 	
 	let fileName = q.pathname;
-	fileName = fileName == "/" ? "/index.html" : fileName;
+	console.log(fileName);
+	
+	let patternJS = /.js$/;
+	let patternCSS = /.css$/;
+	let patternHTML = /.html$/;
+	let patternIMG = /(.png|.jpg)$/;
+
+	// Add appropriate path prefix to files by the file type:
+	if (fileName == "/" || fileName == "/index.html") fileName = "./index.html"; // If no file name is specified in the query, send  the index page
+	else if (patternJS.test(fileName)) fileName = "./src/js" + fileName;
+	else if (patternCSS.test(fileName)) fileName = "./src/css" + fileName;
+	else if (patternHTML.test(fileName)) fileName = "./src/pages" + fileName;
+	else if (patternIMG.test(fileName)) fileName = "./public" + fileName;
+
 	console.log("FILENAME ", fileName);
 
 	switch (fileName){
@@ -177,7 +195,6 @@ serveStatic = function (req, res) {
 		case "/favicon.ico":
 				break;
 		default:
-			fileName = '.' + fileName;
 			fs.readFile(fileName, function(err, content){
         		        console.log(err);
 				if (err) {

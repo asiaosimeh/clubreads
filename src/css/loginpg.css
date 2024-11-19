@@ -12,7 +12,7 @@ body {
   align-items: center;
   height: 100vh;
   /*background-color: #81241f;*/
-  background-image: url('../../public/loginBackground.png');
+  background-image: url('loginBackground.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
