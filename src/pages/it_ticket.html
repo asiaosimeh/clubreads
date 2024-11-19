@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<title> ClubReads IT Ticket Form Page</title>
+<title> ClubReads IT Ticket Form Page </title>
 <body>
 
-<h1> ClubReads' Create IT Ticket Form </h1>
+<div id="header">
+<h1 class="adamina-regular"> ClubReads' Create IT Ticket Form </h1>
+
 
 <label for="title"><b>Create IT Ticket</b></label>
 <input type="text" placeholder="Ticket title" name="title" id="title" required>
+
+<a href="index.html"><button type="button">Home</button></a>
+</div>
+
 
 <br><br>
 <br><br>
@@ -26,9 +40,12 @@
 <br><br>
 <br><br>
 
-<p id="results">Click the button to create and submit your IT ticket</p>
+<p id="results">Click the button to submit your IT ticket</p>
 
-<button type="submit" class="reg">Create IT Ticket</button>
+<button id="submit" type="submit" class="reg">Create IT Ticket</button>
+
+<button id="submit" type="submit" class="reg">Create IT Ticket</button>
+<script src="it_ticketFunc.js"></script>
 
 </body>
 </head>
