@@ -173,9 +173,6 @@ function rtrvDB(topic, author, loc, callback) {
 	else if (topic == "empty" && author == "" && loc != "empty") { queryString += "WHERE region='" + parseLocCode(loc) + "';"; }
 	
 
-	let connection_pool = mysql.createPool(connectionObj_IT);
-	connection_pool.query(queryString, function (error, results, fields) {
-
 	console.log("Generated Query:", queryString); //debugging
 
 	let connection_pool = mysql.createPool(connectionObj);
