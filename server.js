@@ -14,7 +14,31 @@ const connectionObj = {
 	rowsAsArray     : true
 }
 
+
+const connectionObj_IT = {
+	host	 : '35.237.115.8',
+	user	 : 'asiaosimeh',
+	password : 'clubreads2024',
+	database : 'RegisterDB',
+	connectionLimit: 10
+}
+
+// Define the (temporarily here) databank that the client can request from:
+const data = [
+	{"name" : "Harry Potter Reading Group", "topic" : "Fantasy", "author" : "J. K. Rowling", "loc" : "North East"},
+	{"name" : "SciFi Readers", "topic" : "Science Fiction", "author" : "", "loc" : "South East"},
+	{"name" : "Donna's Amazing Book Club", "topic" : "Adventure", "author" : "", "loc" : "South West"},
+	{"name" : "Adventure Wranglers", "topic" : "Adventure", "author" : "", "loc" : "North East"},
+	{"name" : "Matchmakers", "topic" : "Romance", "author" : "", "loc" : "North West"},
+	{"name" : "Spooky Books Inc.", "topic" : "Horror", "author" : "", "loc" : "South West"},
+	{"name" : "Autobiographicals Book Club", "topic" : "Non-fiction", "author" : "", "loc" : "North East"}
+
+]
+console.log(data);
+// Define empty, to be used in 'fileType' function:
+
 // Define an empty variable, to be used in 'fileType' function below:
+
 let cType = "";
 
 function fileType(fileName){
@@ -148,10 +172,15 @@ function rtrvDB(topic, author, loc, callback) {
 	// ONLY LOCATION:
 	else if (topic == "empty" && author == "" && loc != "empty") { queryString += "WHERE region='" + parseLocCode(loc) + "';"; }
 	
+
+	let connection_pool = mysql.createPool(connectionObj_IT);
+	connection_pool.query(queryString, function (error, results, fields) {
+
 	console.log("Generated Query:", queryString); //debugging
 
 	let connection_pool = mysql.createPool(connectionObj);
 	connection_pool.query(queryString, function (error, results) {
+
 		if (error) {
 			console.log("ERROR: ", error);
 			callback(error,null); //passes the error to the callback
@@ -167,6 +196,57 @@ function rtrvDB(topic, author, loc, callback) {
 	
 }
 
+
+function sendTicket(res, req){
+	//ASHLEY TROUBLESHOOT 11/19
+	//ensuring all fields are filled in to avoid invalid or empty values into the database
+	//if any field is empty, send an error to the client
+	if (!req.email || !req.title || !req.issue){
+		res.writeHead(400, {'Content-Type' : 'application/json'});
+		res.end(JSON.stringfy({error: "Must fill the require fields. Please attempt again with email, title, and issue."}));
+		return;
+	}
+
+	let queryString = "INSERT INTO it_ticket_form VALUES ('" + req.email + "', '" + req.title + "', '" + req.issue + "');";
+	console.log(queryString);
+
+	let connection_pool = mysql.createPool(connectionObj_IT);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			 //this handles the SQL query erros by loging to debug and send 500 error to client
+			//hopefully this works
+			console.log("ERROR: ", error);
+			res.writeHead(500, {'Content-Type' : 'application/json'});
+			res.end(JSON.stringify({ error: "Database error occurred."}));
+		} else {
+			console.log("CONNECTION SUCCESS");
+
+			console.log(results);
+			res.writeHead(200, {'Content-Type': 'application/json'});
+			res.end(JSON.stringify(results));
+			
+		} // End if/else
+	}); // Callback function*/
+}
+
+function listIT(res){
+	let queryString = "SELECT * FROM it_ticket_form;";
+	
+	let connection_pool = mysql.createPool(connectionObj_IT);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			console.log("ERROR: ", error);
+		} else {
+			console.log("CONNECTION SUCCESS");
+
+			console.log(results);
+
+			res.writeHead(200, {'Content-Type' : 'text/plain'});
+			res.write(JSON.stringify(results));
+			res.end();
+		} // End if/else
+	}); // Callback function*/
+}
 
 
 // Main function, decides which other function to call to server the client's request:
@@ -193,6 +273,13 @@ serveStatic = function (req, res) {
 	switch (fileName){
 		case "/search":
 			parseSearch(res, q.query);
+			break;
+		case "/itticket":
+			sendTicket(res, q.query);
+			break;
+		case "/listit":
+			listIT(res);
+			break;
 		case "/favicon.ico":
 				break;
 		default:
