@@ -13,6 +13,14 @@ const connectionObj = {
 	connectionLimit : 10
 }
 
+const connectionObj_IT = {
+	host	 : '35.237.115.8',
+	user	 : 'asiaosimeh',
+	password : 'clubreads2024',
+	database : 'RegisterDB',
+	connectionLimit: 10
+}
+
 // Define the (temporarily here) databank that the client can request from:
 const data = [
 	{"name" : "Harry Potter Reading Group", "topic" : "Fantasy", "author" : "J. K. Rowling", "loc" : "North East"},
@@ -146,7 +154,7 @@ function rtrvDB(topic, author, loc) {
 	// ONLY LOCATION:
 	else if (topic == "empty" && author == "" && loc != "empty") { queryString += "WHERE region='" + parseLocCode(loc) + "';"; }
 	
-	let connection_pool = mysql.createPool(connectionObj);
+	let connection_pool = mysql.createPool(connectionObj_IT);
 	connection_pool.query(queryString, function (error, results, fields) {
 		if (error) {
 			console.log("ERROR: ", error);
@@ -166,6 +174,50 @@ function rtrvDB(topic, author, loc) {
 	return response;
 }
 
+
+function sendTicket(res, req){
+	// If these are empty, replace them with a space (necessary for proper uery):
+	req.email = req.email=="" ? " " : req.email;
+	req.title = req.title=="" ? " " : req.title;
+	req.issue = req.issue=="" ? " " : req.issue;
+
+	let queryString = "INSERT INTO it_ticket_form VALUES ('" + req.email + "', '" + req.title + "', '" + req.issue + "');";
+	console.log(queryString);
+
+	let connection_pool = mysql.createPool(connectionObj_IT);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			console.log("ERROR: ", error);
+			callback(error, null);
+		} else {
+			console.log("CONNECTION SUCCESS");
+
+			console.log(results);
+			callback(null, results);
+		} // End if/else
+	}); // Callback function*/
+}
+
+function listIT(res){
+	let queryString = "SELECT * FROM it_ticket_form;";
+	
+	let connection_pool = mysql.createPool(connectionObj_IT);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			console.log("ERROR: ", error);
+			callback(error, null);
+		} else {
+			console.log("CONNECTION SUCCESS");
+
+			console.log(results);
+			callback(null, results);
+
+			res.writeHead(200, {'Content-Type' : 'tex.plain'});
+			res.write(results);
+			res.end();
+		} // End if/else
+	}); // Callback function*/
+}
 
 
 // Main function, decides which other function to call to server the client's request:
@@ -192,6 +244,10 @@ serveStatic = function (req, res) {
 	switch (fileName){
 		case "/search":
 			parseSearch(res, q.query);
+		case "/itticket":
+			sendTicket(res, q.query);
+		case "/listit":
+			listIT(res);
 		case "/favicon.ico":
 				break;
 		default:
