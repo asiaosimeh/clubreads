@@ -195,7 +195,7 @@ function sendTicket(res, req){
 			//hopefully this works
 			console.log("ERROR: ", error);
 			res.writeHead(500, {'Content-Type' : 'application/json'});
-			res.end(JSON.stringfy({ error: "Database error occurred."}));
+			res.end(JSON.stringify({ error: "Database error occurred."}));
 		} else {
 			console.log("CONNECTION SUCCESS");
 
