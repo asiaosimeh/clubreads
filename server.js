@@ -244,10 +244,13 @@ serveStatic = function (req, res) {
 	switch (fileName){
 		case "/search":
 			parseSearch(res, q.query);
+			break;
 		case "/itticket":
 			sendTicket(res, q.query);
+			break;
 		case "/listit":
 			listIT(res);
+			break;
 		case "/favicon.ico":
 				break;
 		default:
