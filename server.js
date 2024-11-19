@@ -188,12 +188,13 @@ function sendTicket(res, req){
 	connection_pool.query(queryString, function (error, results) {
 		if (error) {
 			console.log("ERROR: ", error);
-			callback(error, null);
 		} else {
 			console.log("CONNECTION SUCCESS");
 
 			console.log(results);
-			callback(null, results);
+			res.writeHead(200, {'Content-Type': 'application/json'});
+			res.write(JSON.stringify(results));
+			res.end();
 		} // End if/else
 	}); // Callback function*/
 }
@@ -205,15 +206,13 @@ function listIT(res){
 	connection_pool.query(queryString, function (error, results) {
 		if (error) {
 			console.log("ERROR: ", error);
-			callback(error, null);
 		} else {
 			console.log("CONNECTION SUCCESS");
 
 			console.log(results);
-			callback(null, results);
 
-			res.writeHead(200, {'Content-Type' : 'tex.plain'});
-			res.write(results);
+			res.writeHead(200, {'Content-Type' : 'text/plain'});
+			res.write(JSON.stringify(results));
 			res.end();
 		} // End if/else
 	}); // Callback function*/
