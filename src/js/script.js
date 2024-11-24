@@ -10,14 +10,16 @@ function myclick(){
 	let topic = document.getElementById("genre").value;
 	let author = document.getElementById("author").value;
 	let loc = document.getElementById("loc").value;
+	let day = document.getElementById("day").value;
 	
 	console.log("INPUT:\n");
 	console.log(topic);
 	console.log(author);
 	console.log(loc);
+	console.log(day);
 	console.log("\n");
 
-	let reqUrl = urlPrefix + "/search?" + "topic=" + topic + "&author=" + author + "&loc=" + loc;
+	let reqUrl = urlPrefix + "/search?" + "topic=" + topic + "&author=" + author + "&loc=" + loc + "&day=" + day;
 	
 	// Send the URL request using Fetch API:
 	fetch(reqUrl)

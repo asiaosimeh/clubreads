@@ -133,8 +133,42 @@ function parseLocCode(locCode){
 	return value;
 } // End function
 
+function parseDayCode(dayCode){
+	let value = "";
+
+	switch(dayCode){
+		case "Su":
+			value = "Sunday";
+			break;
+		case "M":
+			value = "Monday";
+			break;
+		case "Tu":
+			value = "Tuesday";
+			break;
+		case "W":
+			value = "Wednesday";
+			break;
+		case "Th":
+			value = "Thursday";
+			break;
+		case "F":
+			value = "Friday";
+			break;
+		case "Sa":
+			value = "Saturday";
+			break;
+		case "empty":
+			value = "";
+			break;
+	}
+
+	return value;
+}
+
+
 function parseSearch(res, search){
-	rtrvDB(search.topic,search.author,search.loc, (err,results) =>{
+	rtrvDB(search.topic,search.author,search.loc,search.day, (err,results) =>{
 		if (err) {
 			res.writeHead(500, {'Content-Type': 'text/plain'});
 			res.write("Database error occurred");
@@ -148,7 +182,7 @@ function parseSearch(res, search){
 }
 
 
-function rtrvDB(topic, author, loc, callback) {
+function rtrvDB(topic, author, loc, day, callback) {
 	let queryString = "SELECT * FROM Clubs "; // Populate later with the SQL query string
 
 	/////
@@ -156,21 +190,52 @@ function rtrvDB(topic, author, loc, callback) {
 	/////
 	
 	// NONE GIVEN (send all to the client):
-	if (topic == "empty" && author == "" && loc == "empty") { queryString += ";"; }
+	if (topic == "empty" && author == "" && loc == "empty" && day == "empty") { queryString += ";"; }
 	// ALL GIVEN:
-	else if (topic != "empty" && author != "" && loc != "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND author='" + author + "' AND region='" + parseLocCode(loc) + "';"; }
+	else if (topic != "empty" && author != "" && loc != "empty" && day!="empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND author='" + author + "' AND region='" + parseLocCode(loc) + "' AND meeting_day='" + parseDayCode(day) + "';"; }
+	
+	////////////////////
+	// TRIPLES
+	////////////////////
+	
 	// ALL BUT TOPIC:
-	else if (topic == "empty" && author != "" && loc != "empty") { queryString += "WHERE author='" + author + "' AND region='" + parseLocCode(loc) + "';"; }
+	else if (topic == "empty" && author != "" && loc != "empty" && day != "empty") { queryString += "WHERE author='" + author + "' AND region='" + parseLocCode(loc) + "' AND meeting_day='" + parseDayCode(day) + "';"; }
 	// ALL BUT AUTHOR:
-	else if (topic != "empty" && author == "" && loc != "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND region='" + parseLocCode(loc) + "';"; }
+	else if (topic != "empty" && author == "" && loc != "empty" && day != "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND region='" + parseLocCode(loc) + "' AND meeting_day='" + parseDayCode(day) + "';"; }
 	// ALL BUT LOCATION:
-	else if (topic != "empty" && author != "" && loc == "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND author='" + author + "';"; }
+	else if (topic != "empty" && author != "" && loc == "empty" && day != "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND author='" + author + "' AND meeting_day='" + parseDayCode(day) + "';"; }
+	// ALL BUT DAY:
+	else if (topic != "empty" && author != "" && loc != "empty" && day == "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND author='" + author + "' AND region='" + parseLocCode(loc) + "';"; }
+	
+	/////////////////////
+	// DOUBLES
+	/////////////////////
+	
+	// TOPIC AND AUTHOR:
+	else if (topic != "empty" && author != "" && loc == "empty" && day == "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND author='" + author + "';"; }
+	// TOPIC AND LOCATION:
+	else if (topic != "empty" && author == "" && loc != "empty" && day == "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND region='" + parseLocCode(loc) + "';"; }
+	// TOPIC AND DAY:
+	else if (topic != "empty" && author == "" && loc == "empty" && day != "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND day='" + parseDayCode(day) + "';"; }
+	// AUTHOR AND LOCATION:
+	else if (topic == "empty" && author != "" && loc != "empty" && day == "empty") { queryString += "WHERE author='" + author + "' AND region='" + parseLocCode(loc) + "';"; }
+	// AUTHOR AND DAY:
+	else if (topic == "empty" && author != "" && loc == "empty" && day != "empty") { queryString += "WHERE author='" + author + "' AND meeting_day='" + parseDayCode(day) + "';"; }
+	// LOCATION AND DAY:
+	else if (topic == "empty" && author == "" && loc != "empty" && day != "empty") { queryString += "WHERE region='" + parseLocCode(loc) + "' AND meeting_day='" + parseDayCode(day) + "';"; }
+	
+	////////////////////
+	// SINGLES
+	////////////////////
+	
 	// ONLY TOPIC:
-	else if (topic != "empty" && author == "" && loc == "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "';"; }
+	else if (topic != "empty" && author == "" && loc == "empty" && day == "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "';"; }
 	// ONLY AUTHOR:
-	else if (topic == "empty" && author != "" && loc == "empty") { queryString += "WHERE author='" + author + "';"; }
+	else if (topic == "empty" && author != "" && loc == "empty" && day == "empty") { queryString += "WHERE author='" + author + "';"; }
 	// ONLY LOCATION:
-	else if (topic == "empty" && author == "" && loc != "empty") { queryString += "WHERE region='" + parseLocCode(loc) + "';"; }
+	else if (topic == "empty" && author == "" && loc != "empty" && day == "empty") { queryString += "WHERE region='" + parseLocCode(loc) + "';"; }
+	// ONLY DAY:
+	else if (topic == "empty" && author == "" && loc == "empty" && day != "empty") { queryString += "WHERE meeting_day='" + parseDayCode(loc) + "';"; }
 	
 
 	console.log("Generated Query:", queryString); //debugging
