@@ -125,6 +125,10 @@ function parseLocCode(locCode){
 			break;
 		case "MW":
 			value = "Midwest";
+			break;
+		case "west":
+			value = "West";
+			break;
 		case "empty":
 			value = "";
 			break;
