@@ -310,6 +310,9 @@ function listIT(res){
 	}); // Callback function*/
 }
 
+function registerUser(res, queryString) {
+	console.log("REGISTER: ", queryString);
+}
 
 // Main function, decides which other function to call to server the client's request:
 serveStatic = function (req, res) {
@@ -341,6 +344,9 @@ serveStatic = function (req, res) {
 			break;
 		case "/listit":
 			listIT(res);
+			break;
+		case "/register":
+			registerUser(res, q.query);
 			break;
 		case "/favicon.ico":
 				break;

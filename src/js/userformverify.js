@@ -1,4 +1,6 @@
 
+let urlPrefix = "http://35.196.73.111";
+
 // Verify format of both password fields:
 function userPass(){
 	let pass = document.getElementById('pass').value;
@@ -31,6 +33,22 @@ function validEmail(){
 	}
 }
 
+function sendData(username, email, fname, lname, pass){
+	let reqUrl = urlPrefix + "/register?" + "username=" + username + "&email=" + email + "&fname=" + fname + "&lname=" + lname + "&pass=" + pass;
+	
+	fetch(reqUrl)
+		.then(response => {
+			if(!response.ok) {throw new Error("Network response not ok.");
+			return respons.json();}
+		})
+		.then(data => {
+			console.log("RECIEVED: ", data);
+		})
+		.catch(error => {
+			console.error("Error with fetch operation: ", error);
+		}); // End Fetch operation
+}
+
 document.getElementById("submitBtn").addEventListener("click", function (){
 	let username = document.getElementById("username").value;
 	let email = document.getElementById("email").value;
@@ -42,6 +60,7 @@ document.getElementById("submitBtn").addEventListener("click", function (){
 		window.alert("Please fill out all fields");
 	} else if (validEmail() && userPass() && username!="" && fname!="" && lname!=""){
 		console.log("INPUT: ", username, email, fname, lname, pass);
+		sendData(username, email, fname, lname, pass);
 	}
 });
 
