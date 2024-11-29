@@ -125,6 +125,10 @@ function parseLocCode(locCode){
 			break;
 		case "MW":
 			value = "Midwest";
+			break;
+		case "west":
+			value = "West";
+			break;
 		case "empty":
 			value = "";
 			break;
@@ -311,6 +315,39 @@ function listIT(res){
 }
 
 
+function createBC(res, query) {
+	console.log("RECIEVED: ", query);
+
+	// Write to DB:
+	console.log(parseDayCode(query.day), query.author, query.edate, query.sdate)
+	
+	// Parse the dates recievd into 'Date' objects:
+	/*let sdate = new Date(query.sdate);
+		sdate = sdate.toISOString().substring(0, 10);
+	let edate = new Date(query.edate);
+		edate = edate.toISOString().substring(0, 10);*/
+
+	let queryString = "INSERT INTO Clubs (club_name, book_name, author, genre, meeting_day, region, capacity, start_date, end_date) VALUES ('" + query.clubName + "', '" + query.bookName + "', '" + query.author + "', '" + parseGenreCode(query.genre) + "', '" + parseDayCode(query.day) + "','" + parseLocCode(query.loc) + "', " + query.capacity + ", '" + query.sdate + "', '" + query.edate + "');";
+	
+	console.log("QUERY: ", queryString);
+
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			console.log("ERROR: ", error);
+		} else {
+			console.log("CONNECTION SUCCESS");
+
+			console.log(results);
+
+			res.writeHead(200, {'Content-Type' : 'text/plain'});
+			res.write(JSON.stringify(results));
+			res.end();
+		} // End if/else
+	}); // Callback function
+}
+
+
 // Main function, decides which other function to call to server the client's request:
 serveStatic = function (req, res) {
 	q = url.parse(req.url, true);
@@ -341,6 +378,9 @@ serveStatic = function (req, res) {
 			break;
 		case "/listit":
 			listIT(res);
+			break;
+		case "/createBC":
+			createBC(res, q.query);
 			break;
 		case "/favicon.ico":
 				break;
