@@ -15,7 +15,7 @@ const connectionObj = {
 }
 
 
-const connectionObj_IT = {
+const connectionObj_Reg = {
 	host	 : '35.237.115.8',
 	user	 : 'asiaosimeh',
 	password : 'clubreads2024',
@@ -276,7 +276,7 @@ function sendTicket(res, req){
 	let queryString = "INSERT INTO it_ticket_form VALUES ('" + req.email + "', '" + req.title + "', '" + req.issue + "');";
 	console.log(queryString);
 
-	let connection_pool = mysql.createPool(connectionObj_IT);
+	let connection_pool = mysql.createPool(connectionObj_Reg);
 	connection_pool.query(queryString, function (error, results) {
 		if (error) {
 			 //this handles the SQL query erros by loging to debug and send 500 error to client
@@ -298,7 +298,7 @@ function sendTicket(res, req){
 function listIT(res){
 	let queryString = "SELECT * FROM it_ticket_form;";
 	
-	let connection_pool = mysql.createPool(connectionObj_IT);
+	let connection_pool = mysql.createPool(connectionObj_Reg);
 	connection_pool.query(queryString, function (error, results) {
 		if (error) {
 			console.log("ERROR: ", error);
@@ -314,6 +314,27 @@ function listIT(res){
 	}); // Callback function*/
 }
 
+function registerUser(res, q) {
+	console.log("REGISTER: ", q.username, q.email, q.fname, q.lname, q.pass);
+	
+	let queryString = "INSERT INTO Users (username, email, password_hash, first_name, last_name) VALUES ('" + q.username + "', '" + q.email + "', '"  + q.pass + "', '" + q.fname + "', '" + q.lname + "');";
+	console.log(queryString);
+
+	let connection_pool = mysql.createPool(connectionObj_Reg);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			console.log("ERROR: ", error);
+		} else {
+			console.log("CONNECTION SUCCESS");
+
+			console.log(results);
+
+			res.writeHead(200, {'Content-Type' : 'text/plain'});
+			res.write(JSON.stringify({'message' : 'success'}));
+			res.end();
+		} // End if/else
+	}); // Callback function*/
+}
 
 function createBC(res, query) {
 	console.log("RECIEVED: ", query);
@@ -379,8 +400,13 @@ serveStatic = function (req, res) {
 		case "/listit":
 			listIT(res);
 			break;
+
+		case "/register":
+			registerUser(res, q.query);
+
 		case "/createBC":
 			createBC(res, q.query);
+
 			break;
 		case "/favicon.ico":
 				break;
