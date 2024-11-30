@@ -10,14 +10,16 @@ function myclick(){
 	let topic = document.getElementById("genre").value;
 	let author = document.getElementById("author").value;
 	let loc = document.getElementById("loc").value;
+	let day = document.getElementById("day").value;
 	
 	console.log("INPUT:\n");
 	console.log(topic);
 	console.log(author);
-	console.log(topic);
+	console.log(loc);
+	console.log(day);
 	console.log("\n");
 
-	let reqUrl = urlPrefix + "/search?" + "topic=" + topic + "&author=" + author + "&loc=" + loc;
+	let reqUrl = urlPrefix + "/search?" + "topic=" + topic + "&author=" + author + "&loc=" + loc + "&day=" + day;
 	
 	// Send the URL request using Fetch API:
 	fetch(reqUrl)
@@ -38,33 +40,35 @@ function myclick(){
 }
 
 function pasteData(dataList){
-		console.log("Pasting...");
+		console.log("Pasting...", dataList);
 		
 		// Get the ouput span-element for printing to the screen:
 		let outputBin = document.getElementById("out");
 		
 		// Remove whitespace, then parse the object sent back from the server (It gives errors if whitespace is not removed):
-		let obj = JSON.parse( JSON.stringify(dataList).trim() );
+		/*let obj = JSON.parse( JSON.stringify(dataList).trim() );
 		console.log("OBJ" + obj, "DATALSIT " + dataList);
-		console.log(typeof(obj), (obj.name));
+		console.log(typeof(obj), (obj.name));*/
 
 		// IF there were matches found to the user's search, then parse and output the response from the server:	
 		outputBin.innerHTML = "<h2>Book clubs matching search:</h2>";
 		
-		for (e of dataList){
-			console.log("ELEMENT: ", e);
-			
-			e = JSON.parse(e);
-			
-			if (e.name == "NULL") {
-				outputBin.innerHTML = "<h2>No results found.</h2>";
-				break;
+		if (!Array.isArray(dataList)) {
+			console.error("Data is not an array:", dataList);
+			outputBin.innerHTML="<h2>No results found.</h2>";
+			return;
+		} else if (dataList.length == 0) {
+			console.log("Empty response.");
+			outputBin.innerHTML = "<h2>No results found.</h2>";
+		} else{	
+			for (let e of dataList){
+				console.log("ELEMENT: ", e);
+					
+				// Remove any previous output from prior searches, and output the new results to the page:
+				
+				outputBin.innerHTML += "<p><strong>" + e[1] + "</strong> | <strong>Meets:</strong> " + e[5] + "; <strong>Region:</strong> " + e[6] + "; <strong>Current book:</strong> " + e[2] + " by " + e[3] + "</p>";
 			}
-			
-			// Remove any previous output from prior searches, and output the new results to the page:
-			
-			outputBin.innerHTML += "<p>" + e.name + "</p>";
-		}
+		} // End if/else-if/else block
 		
 }
 
