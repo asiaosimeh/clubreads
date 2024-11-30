@@ -38,11 +38,15 @@ function sendData(username, email, fname, lname, pass){
 	
 	fetch(reqUrl)
 		.then(response => {
-			if(!response.ok) {throw new Error("Network response not ok.");
-			return respons.json();}
+			if(!response.ok) {throw new Error("Network response not ok.")};
+			return response.json();
 		})
 		.then(data => {
 			console.log("RECIEVED: ", data);
+			if (data.message == "success") {
+				window.alert("Registration successful.");
+				window.location.href = urlPrefix + "/";
+			}
 		})
 		.catch(error => {
 			console.error("Error with fetch operation: ", error);
