@@ -336,7 +336,7 @@ function adminIT(res){
 		}
 	
 	});
-
+}
 
 function registerUser(res, q) {
 	console.log("REGISTER: ", q.username, q.email, q.fname, q.lname, q.pass);
