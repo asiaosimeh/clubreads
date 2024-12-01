@@ -320,7 +320,7 @@ function registerUser(res, q) {
 	let queryString = "INSERT INTO Users (username, email, password_hash, first_name, last_name) VALUES ('" + q.username + "', '" + q.email + "', '"  + q.pass + "', '" + q.fname + "', '" + q.lname + "');";
 	console.log(queryString);
 
-	let connection_pool = mysql.createPool(connectionObj_Reg);
+	let connection_pool = mysql.createPool(connectionObj);
 	connection_pool.query(queryString, function (error, results) {
 		if (error) {
 			console.log("ERROR: ", error);
