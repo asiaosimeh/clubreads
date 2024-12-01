@@ -327,7 +327,7 @@ function createBC(res, query) {
 	let edate = new Date(query.edate);
 		edate = edate.toISOString().substring(0, 10);*/
 
-	let queryString = "INSERT INTO Clubs (club_name, book_name, author, genre, meeting_day, region, capacity, start_date, end_date) VALUES ('" + query.clubName + "', '" + query.bookName + "', '" + query.author + "', '" + parseGenreCode(query.genre) + "', '" + parseDayCode(query.day) + "','" + parseLocCode(query.loc) + "', " + query.capacity + ", '" + query.sdate + "', '" + query.edate + "');";
+	let queryString = "INSERT INTO Clubs (club_name, book_name, author, genre, meeting_day, region, capacity, start_date, end_date, hosted) VALUES ('" + query.clubName + "', '" + query.bookName + "', '" + query.author + "', '" + parseGenreCode(query.genre) + "', '" + parseDayCode(query.day) + "','" + parseLocCode(query.loc) + "', " + query.capacity + ", '" + query.sdate + "', '" + query.edate + "', " + query.hostid +  ");";
 	
 	console.log("QUERY: ", queryString);
 
