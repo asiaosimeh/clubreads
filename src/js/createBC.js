@@ -2,6 +2,19 @@
 
 urlPrefix = "http://35.196.73.111";
 
+////////////////////////
+// TEMTPORARY, FOR GATHERING USER ID OF THE USER CREATING A NEW CLUB, UNTIL LOGIN-SESSION FUNCTIONALITY IS IMPLEMENTED
+////////////////////////
+let user_id = 0;
+while (true){
+	user_id = prompt("TEMPORARY\nEnter user id. ");
+
+	if (user_id != null) {
+		break;
+	}
+}
+
+
 document.getElementById("submit").addEventListener("click", function(){
 	// Define variables to collect the info from the form:
 	let clubName = document.getElementById("clubName").value;
@@ -14,13 +27,13 @@ document.getElementById("submit").addEventListener("click", function(){
 	let sdate = document.getElementById("sdate").value;
 	let edate = document.getElementById("edate").value;
 
-	console.log("INPUT: ", clubName, bookName, author, genre, day, loc, capacity, sdate, edate);
+	console.log("INPUT: ", clubName, bookName, author, genre, day, loc, capacity, sdate, edate, user_id);
 	//////////////////
 	if (checkFormat(clubName, bookName, author, genre, day, loc, capacity, sdate, edate)){
 
 	//console.log("INPUT: ", clubName, bookName, author, genre, day, loc, capacity, sdate, edate);
 	
-	let reqUrl = urlPrefix + "/createBC?clubName=" + clubName + "&bookName=" + bookName + "&author=" + author + "&genre=" + genre + "&day=" + day + "&loc=" + loc + "&capacity=" + capacity + "&sdate=" + sdate + "&edate=" + edate;
+	let reqUrl = urlPrefix + "/createBC?clubName=" + clubName + "&bookName=" + bookName + "&author=" + author + "&genre=" + genre + "&day=" + day + "&loc=" + loc + "&capacity=" + capacity + "&sdate=" + sdate + "&edate=" + edate + "&hostid=" + user_id;
 	
 	// Send the URL request using Fetch API:
 	fetch(reqUrl)
