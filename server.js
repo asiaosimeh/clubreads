@@ -314,7 +314,6 @@ function listIT(res){
 	}); // Callback function*/
 }
 
-<<<<<<< HEAD
 //Display all submitted tickets on the ClubReads Admin's dashboard
 function adminIT(res){
 	
@@ -337,7 +336,8 @@ function adminIT(res){
 		}
 	
 	});
-=======
+
+
 function registerUser(res, q) {
 	console.log("REGISTER: ", q.username, q.email, q.fname, q.lname, q.pass);
 	
@@ -390,7 +390,6 @@ function createBC(res, query) {
 			res.end();
 		} // End if/else
 	}); // Callback function
->>>>>>> 06d59282ac1b76a4cf9417da1e0d5a7a2bf72dca
 }
 
 
@@ -432,6 +431,10 @@ serveStatic = function (req, res) {
 		case "/createBC":
 			createBC(res, q.query);
 
+			break;
+
+		case "/adminIT":
+			adminIT(res);
 			break;
 		case "/favicon.ico":
 				break;
