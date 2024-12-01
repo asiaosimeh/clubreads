@@ -368,6 +368,29 @@ function createBC(res, query) {
 	}); // Callback function
 }
 
+//Function to display all submitted tickets in ClubReads Admin's dashboard
+function adminIT(res){
+	
+	let queryStr = "SELECT * FROM it_ticket_form;";
+
+	
+	let connection_pool = mysql.createPool(connectionObj_IT);
+	connection_pool.query(queryStr, function (error, results){
+		if (error) {
+			console.log("ERROR: ", error);
+			res.writeHead(500, {'Content-Type': 'application/json'});
+			res.end(JSON.stringify({error: "Database error occurred."}));
+		}
+		else{
+			console.log("Connection established");
+			console.log(results);
+			res.writeHead(200, {'Content-Type': 'text/plain'});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	
+	});
+}
 
 // Main function, decides which other function to call to server the client's request:
 serveStatic = function (req, res) {
@@ -407,6 +430,9 @@ serveStatic = function (req, res) {
 		case "/createBC":
 			createBC(res, q.query);
 
+			break;
+		case "/adminIT":
+			adminIT(res);
 			break;
 		case "/favicon.ico":
 				break;
