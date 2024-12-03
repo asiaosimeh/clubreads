@@ -1,5 +1,5 @@
 //hoping this works
-
+//i can delete
 function validateLogin() {
     const connection = mysql.createConnection({
         host: '35.237.115.8',
@@ -9,7 +9,7 @@ function validateLogin() {
     });
 
     connection.connect();
-
+//moves to server.js file
     function validateLogin() {
         var username = document.getElementById('username').value;
         var password = document.getElementById('password_hash').value;
@@ -23,6 +23,7 @@ function validateLogin() {
                 alert('Invalid username or password.');
             }
         });
+//stays in this file
     }function validateLogin() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
