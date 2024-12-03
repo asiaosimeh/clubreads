@@ -392,6 +392,35 @@ function createBC(res, query) {
 	}); // Callback function
 }
 
+
+function loginUser(res, query) {
+	let user = query.user;
+	let pass = query.pass;
+	
+	let queryString = "SELECT * FROM Users;";
+	
+	let connection_pool = mysql.createPool(connecionObj);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			console.log("ERROR: ", error);
+		} else {
+			console.log("CONNECTION SUCCESS");
+
+			console.log(results);
+
+			// Check if the given user/password combo is in the DB, pass the answer to the user:
+			for (e of results) {
+				cosole.log(e.username, e.password_hash);
+			}
+
+			res.writeHead(200, {'Content-Type' : 'text/plain'});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	});
+}
+
+
 //Function to display all submitted tickets in ClubReads Admin's dashboard
 function adminIT(res){
 	
@@ -447,17 +476,17 @@ serveStatic = function (req, res) {
 		case "/listit":
 			listIT(res);
 			break;
-
 		case "/register":
 			registerUser(res, q.query);
 
 		case "/createBC":
 			createBC(res, q.query);
-
 			break;
-
 		case "/adminIT":
 			adminIT(res);
+			break;
+		case "/login":
+			loginUser(res, q.query);
 			break;
 		case "/favicon.ico":
 				break;

@@ -5,33 +5,31 @@ let urlPrefix = "http://35.196.73.111";
 document.getElementById("submit").addEventListener("click", function () {
 	let user = document.getElementById("username").value;
 	let pass = document.getElementById("password").value;
+	console.log("ENTERED: ", user, pass);
 
 	if (user == "" || pass == "") {
 		window.alert("Pleqase fill out all fields.");
 	} else {
-		checkLogin(user, pass);
-	}
+		console.log("CHECKING");
+		let reqUrl = urlPrefix + "/login?user=" + user + "&pass=" + pass;
+	
+		console.log("SENDING");
+	
+		fetch(reqUrl)
+			.then(response => {
+				if(!response.ok) {throw new Error("Network response not ok.");}
+				return response.json();
+			})
+			.then(data => {
+				console.log("RECIEVED: ", data);
+				if (data.message == "existing") {
+					window.alert("SUCCESSFUL LOGIN - FUNCTIONALITY COMING SOON");
+					window.location.href = urlPrefix + "/";
+				}
+			})
+			.catch(error => {
+				console.log("Error with fetch operation", error);
+			});
+	} // End if/else which checks for all fields bweing filled
 });
-
-// Function to check the user's credentials and ensure they exist inthe DB:
-function checkLogin(user, pass) {
-	let urlReq = urlPrefix + "/login?user=" + user + "&pass=";
-
-	fetch(reqUrl)
-		.then(response => {
-			if(!response.ok) {throw new Error("Network response not ok.")};
-			rerutn response.json();
-		})
-		.then(data => {
-			console.log("RECIEVED: ", data);
-			if (data.message == "existing") {
-				window.alert("SUCCESSFUL LOGIN - FUNCTIONALITY COMING SOON");
-				window.location.href = urlPrefix + "/";
-			}
-		})
-		.catch(error => {
-			console.log("Error with fetch operation", error);
-		});
-}
-
 
