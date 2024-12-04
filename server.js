@@ -320,7 +320,7 @@ function adminIT(res){
 	let queryStr = "SELECT * FROM it_ticket_form;";
 
 	
-	let connection_pool = mysql.createPool(connectionObj_IT);
+	let connection_pool = mysql.createPool(connectionObj_Reg);
 	connection_pool.query(queryStr, function (error, results){
 		if (error) {
 			console.log("ERROR: ", error);
@@ -476,4 +476,3 @@ serveStatic = function (req, res) {
  
 const myserver = http.createServer(serveStatic); //create a server object
 myserver.listen(80, function() {console.log("Listening on port 80" )}); 
-
