@@ -399,7 +399,7 @@ function loginUser(res, query) {
 	
 	let queryString = "SELECT * FROM Users;";
 	
-	let connection_pool = mysql.createPool(connecionObj);
+	let connection_pool = mysql.createPool(connectionObj);
 	connection_pool.query(queryString, function (error, results) {
 		if (error) {
 			console.log("ERROR: ", error);
@@ -408,14 +408,25 @@ function loginUser(res, query) {
 
 			console.log(results);
 
+			outMessage = JSON.stringify({message : 'none'});
+
 			// Check if the given user/password combo is in the DB, pass the answer to the user:
 			for (e of results) {
-				cosole.log(e.username, e.password_hash);
-			}
-
+				console.log("USERNAME:", e[1], "PASSWORD:", e[3]);
+				
+				if (e[1] == user && e[3] == pass) {
+					// Send a message flagging that a match was found
+					console.log("Login match");
+					outMessage = JSON.stringify({message : 'match', name : e[4]});
+		
+					match = true;
+				} else { console.log(e[1], e[3]) }
+				
+			} // End for loop
 			res.writeHead(200, {'Content-Type' : 'text/plain'});
-			res.write(JSON.stringify(results));
+			res.write(outMessage);
 			res.end();
+			
 		}
 	});
 }

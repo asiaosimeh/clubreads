@@ -11,25 +11,32 @@ document.getElementById("submit").addEventListener("click", function () {
 		window.alert("Pleqase fill out all fields.");
 	} else {
 		console.log("CHECKING");
-		let reqUrl = urlPrefix + "/login?user=" + user + "&pass=" + pass;
-	
-		console.log("SENDING");
-	
-		fetch(reqUrl)
-			.then(response => {
-				if(!response.ok) {throw new Error("Network response not ok.");}
-				return response.json();
-			})
-			.then(data => {
-				console.log("RECIEVED: ", data);
-				if (data.message == "existing") {
-					window.alert("SUCCESSFUL LOGIN - FUNCTIONALITY COMING SOON");
-					window.location.href = urlPrefix + "/";
-				}
-			})
-			.catch(error => {
-				console.log("Error with fetch operation", error);
-			});
-	} // End if/else which checks for all fields bweing filled
+		sendInfo(user, pass);
+	}
 });
+
+function sendInfo (user, pass) {
+	let reqUrl = urlPrefix + "/login?user=" + user + "&pass=" + pass;
+	console.log("SENDING", reqUrl);
+	
+	fetch(reqUrl)
+		.then(response => {
+			if(!response.ok) {throw new Error("Network response not ok.");}
+			return response.json();
+		})
+		.then(data => {
+			console.log("RECIEVED: ", data.message);
+			if (data.message == "match") {
+				window.alert("SUCCESSFUL LOGIN - WELCOME, " + data.name + " - FUNCTIONALITY COMING SOON");
+				window.location.href = urlPrefix + "/";
+			} else if (data.message == "none") {
+				window.alert("Incorrect login or password.");
+			} else {
+				console.log("Something went wrong.");
+			}
+		})
+		.catch(error => {
+			console.log("Error with fetch operation", error);
+		});
+} // End function
 
