@@ -2,6 +2,16 @@
 
 urlPrefix = "http://35.196.73.111";
 
+let name = sessionStorage.getItem("name");
+
+if (name != null){
+	document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
+} else {
+	window.alert("ERROR - Member name not found!");
+	window.location.href = urlPrefix + "/";
+}
+
+/*
 function loadInfo() {
 	reqUrl = urlPrefix + "/hostedClubs";
 
@@ -24,4 +34,4 @@ function pasteData(data){
 		console.log(element);
 	}
 }
-
+*/

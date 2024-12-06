@@ -417,7 +417,7 @@ function loginUser(res, query) {
 				if (e[1] == user && e[3] == pass) {
 					// Send a message flagging that a match was found
 					console.log("Login match");
-					outMessage = JSON.stringify({message : 'match', name : e[4]});
+					outMessage = JSON.stringify({message : 'match', name : e[4], userid : e[0]});
 		
 					match = true;
 				} else { console.log(e[1], e[3]) }
