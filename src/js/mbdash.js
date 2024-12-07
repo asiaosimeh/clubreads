@@ -44,6 +44,18 @@ function editClub(){
 	window.alert("Editing funcitonality coming soon!");
 }
 
+function logout(){
+	sessionStorage.clear();
+
+	window.location.href = urlPrefix + "/";
+}
+
+doucment.addEventListener ("DOMContentLoaded", function (){
+	const logoutButton = document.getElementById("logout");
+	if (logoutButton) {
+		logoutButton.addEventListener("click", logout);
+	}
+});
 // Run the output command onload:
 loadInfo();
 
