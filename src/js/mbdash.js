@@ -11,9 +11,9 @@ if (name != null){
 	window.location.href = urlPrefix + "/";
 }
 
-/*
+
 function loadInfo() {
-	reqUrl = urlPrefix + "/hostedClubs";
+	reqUrl = urlPrefix + "/hostedclubs?id=" + sessionStorage.getItem("userid");
 
 	fetch(reqUrl)
 		.then(response => {
@@ -30,8 +30,15 @@ function loadInfo() {
 }
 
 function pasteData(data){
+	let pasteBin = document.getElementById("clubsList").innerHTML;
+	pasteBin.innerHTML = "";
+
 	for (element of data){
 		console.log(element);
+		pasteBin.innerHTML += element;
 	}
 }
-*/
+
+// Run the output command onload:
+loadInfo();
+
