@@ -1,8 +1,6 @@
-let urlPrefix = "http://35.196.73.111"; //change to vm address
+let urlPrefix = "http://35.196.73.11"; //change to vm address
 
-document.getElementById('viewall').addEventListener("click", show_all_tickets)
-
-function show_all_tickets(){
+document.getElementById('viewall').addEventListener("click", function(){
 	let reqUrl = urlPrefix + "/adminIT";
 	
 	fetch(reqUrl)
@@ -26,4 +24,4 @@ function show_all_tickets(){
 			});
 
 
-}
+});
