@@ -452,8 +452,8 @@ function hostedClubsList(res, query){
 			res.write(JSON.stringify(results));
 			res.end();
 		}
-
-
+	});
+}
 	
 
 
