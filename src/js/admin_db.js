@@ -1,4 +1,5 @@
-let urlPrefix = "http://35.196.73.11"; //change to vm address
+
+let urlPrefix = "http://35.196.73.111"; //change to vm address
 
 document.getElementById('viewall').addEventListener("click", function(){
 	let reqUrl = urlPrefix + "/adminIT";
@@ -10,7 +11,7 @@ document.getElementById('viewall').addEventListener("click", function(){
 			})
 			.then(data => {
 				console.log("Got: ", data);
-				let output = document.getElementsByClassName("display");
+				let output = document.getElementById("display");
 				output.innerHTML = "<br><h2>Testing<\h2><br>";
 				for (e of data){
 					output.innerHTML += "<h3 class='sector 1'> " +e.email+ "</h3>";
