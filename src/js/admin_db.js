@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 37402879d6076d531d09a7862a6ea561d0b21a56
 let urlPrefix = "http://35.196.73.111"; //change to vm address
 
 document.getElementById('viewall').addEventListener("click", function(){
