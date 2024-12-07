@@ -10,7 +10,7 @@ document.getElementById('viewall').addEventListener("click", function(){
 			})
 			.then(data => {
 				console.log("Got: ", data);
-				let output = document.getElementById("display");
+				let output = document.getElementById("IT-topic-heading");
 				output.innerHTML = "<br><h2>Testing<\h2><br>";
 				for (e of data){
 					output.innerHTML += "<h3 class='sector 1'> " +e.email+ "</h3>";
