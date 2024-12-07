@@ -27,8 +27,9 @@ function sendInfo (user, pass) {
 		.then(data => {
 			console.log("RECIEVED: ", data.message);
 			if (data.message == "match") {
-				window.alert("SUCCESSFUL LOGIN - WELCOME, " + data.name + " - FUNCTIONALITY COMING SOON");
-				window.location.href = urlPrefix + "/";
+				sessionStorage.setItem("name", data.name);
+				sessionStorage.setItem("userid", data.userid);
+				window.location.href = urlPrefix + "/mbdash.html";
 			} else if (data.message == "none") {
 				window.alert("Incorrect login or password.");
 			} else {

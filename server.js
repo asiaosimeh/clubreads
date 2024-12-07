@@ -413,11 +413,12 @@ function loginUser(res, query) {
 			// Check if the given user/password combo is in the DB, pass the answer to the user:
 			for (e of results) {
 				console.log("USERNAME:", e[1], "PASSWORD:", e[3]);
+				console.log(e);
 				
 				if (e[1] == user && e[3] == pass) {
 					// Send a message flagging that a match was found
 					console.log("Login match");
-					outMessage = JSON.stringify({message : 'match', name : e[4]});
+					outMessage = JSON.stringify({message : 'match', name : e[4], userid : e[0]});
 		
 					match = true;
 				} else { console.log(e[1], e[3]) }
@@ -432,7 +433,29 @@ function loginUser(res, query) {
 }
 
 
+function hostedClubsList(res, query){
+	console.log("QUERY :", query);
+	let queryStr = "SELECT * FROM Clubs WHERE hosted=" + query.id + ";";
+
 	
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(queryStr, function (error, results){
+		if (error) {
+			console.log("ERROR: ", error);
+			res.writeHead(500, {'Content-Type': 'application/json'});
+			res.end(JSON.stringify({error: "Database error occurred."}));
+		}
+		else{
+			console.log("Connection established");
+			console.log(results);
+			res.writeHead(200, {'Content-Type': 'text/plain'});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+
+
+	
+
 
 // Main function, decides which other function to call to server the client's request:
 serveStatic = function (req, res) {
@@ -476,6 +499,9 @@ serveStatic = function (req, res) {
 			break;
 		case "/login":
 			loginUser(res, q.query);
+			break;
+		case "/hostedclubs":
+			hostedClubsList(res, q.query);
 			break;
 		case "/favicon.ico":
 				break;
