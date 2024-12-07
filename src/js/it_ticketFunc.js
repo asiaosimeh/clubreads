@@ -41,7 +41,7 @@ document.getElementById("submit").addEventListener("click", function(){
 
 }
 
-});
+);
 
 document.getElementById("listTickets").addEventListener("click", function(){
 	let reqUrl = urlPrefix + "/listit";
