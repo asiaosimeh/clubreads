@@ -17,7 +17,7 @@ document.getElementById('viewall').addEventListener("click", function(){
 					output.innerHTML += "<h3 class='sector 1'> " +e.email+ "</h3>";
 					output.innerHTML += "<h3 class='sector 2'> " +e.ticket_title+ "</h3>";
 					output.innerHTML += "<h3 class='sector 2'> " +e.issue+ "</h3>";
-					output.innerHTML += "<h3 class='sector 4'>"'This status'"</h3>";
+					output.innerHTML += "<h3 class='sector 4'></h3>";
 				}
 			})
 			.catch(error => {
