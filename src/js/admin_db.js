@@ -1,8 +1,6 @@
-let urlPrefix = "http://35.196.73.111";
+let urlPrefix = "http://35.196.73.11"; //change to vm address
 
-document.getElementById('viewall').addEventListener("click", show_all_tickets)
-
-function show_all_tickets(){
+document.getElementById('viewall').addEventListener("click", function(){
 	let reqUrl = urlPrefix + "/adminIT";
 	
 	fetch(reqUrl)
@@ -12,13 +10,13 @@ function show_all_tickets(){
 			})
 			.then(data => {
 				console.log("Got: ", data);
-				let output = document.getElementById("display");
-				output.innerHTML = "";
+				let output = document.getElementsByClassName("display");
+				output.innerHTML = "<br><h2>Testing<\h2><br>";
 				for (e of data){
-					output.innerHTML += "<h3 class='sector 1'>"+e.email+"</h3>"
-					"<h3 class='sector 2'>"+e.ticket_title+"</h3>"
-					"<h3 class='sector 3'>"+e.issue+"</h3>"
-					"<h3 class='sector 4'>"This status"</h3>";
+					output.innerHTML += "<h3 class='sector 1'> " +e.email+ "</h3>";
+					output.innerHTML += "<h3 class='sector 2'> " +e.ticket_title+ "</h3>";
+					output.innerHTML += "<h3 class='sector 2'> " +e.issue+ "</h3>";
+					output.innerHTML += "<h3 class='sector 4'>"'This status'"</h3>";
 				}
 			})
 			.catch(error => {
@@ -26,4 +24,4 @@ function show_all_tickets(){
 			});
 
 
-}
+});

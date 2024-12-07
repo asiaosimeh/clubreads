@@ -2,12 +2,6 @@
 let title = document.getElementById('title').value;
 let email = document.getElementById('email').value;
 let issue = document.getElementById('issue').value;
-	
-function createTicket(){
-	
-	
-	let title = document.getElementById('title').value;
-    let issue = document.getElementById('issue').value;
 
 
 let urlPrefix  = "http://35.196.73.111";
@@ -41,7 +35,7 @@ document.getElementById("submit").addEventListener("click", function(){
 
 }
 
-});
+);
 
 document.getElementById("listTickets").addEventListener("click", function(){
 	let reqUrl = urlPrefix + "/listit";

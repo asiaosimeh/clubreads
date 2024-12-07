@@ -432,6 +432,7 @@ function loginUser(res, query) {
 	});
 }
 
+
 function hostedClubsList(res, query){
 	console.log("QUERY :", query);
 	let queryStr = "SELECT * FROM Clubs WHERE hosted=" + query.id + ";";
@@ -451,9 +452,9 @@ function hostedClubsList(res, query){
 			res.write(JSON.stringify(results));
 			res.end();
 		}
+
+
 	
-	});
-}
 
 
 // Main function, decides which other function to call to server the client's request:
