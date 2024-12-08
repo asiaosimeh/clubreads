@@ -4,7 +4,7 @@ let email = document.getElementById('email').value;
 let issue = document.getElementById('issue').value;
 
 
-let urlPrefix  = "http://35.196.73.111";
+let urlPrefix  = "http://34.23.105.171";
 
 function createTicket(){
 	
