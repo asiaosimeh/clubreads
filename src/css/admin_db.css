@@ -1,7 +1,9 @@
-body {
+html, body {
     background-color: #f2f1ff ;
     margin: 0;
     padding: 0;
+    height: 100%
+    flex-direction: column;
 }
 
 #header {
@@ -113,35 +115,30 @@ button {
 }
 
 #footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width:100%;
-    align-items: center;
-    text-align: center;
-    background-color: #81241f;
-    padding: 10px 20px;
+	background-color: #81241f;
+	color: white;
+	padding: 10px 20px;
+	text-align: center;
+	width: 100%;
+	postion: absolute;
+	z-index: 0;
+	bottom: 0;
+	left: 0;
+
 }
 
 .dashboard{
 	color: white;
 }
 .main-container{
+	flex: 1;
 	display: flex;
+	align-items: flex-start;
 	width: 90vw;
-	position: relative;
-	top: 20px;
-	
+	margin: 20px auto;
+	gap: 20px;	
 }
-
-.nav-container{
-	height: calc(100vh - 70px);
-	width: 250px;
-	position: relative;
-	overflow-y: hidden;
-	overflow-x: hidden;
-}
-
+/*
 .nav{
 	min-height: 71vh;
 	width: 250px;
@@ -156,11 +153,12 @@ button {
 	overflow: hidden;
 	padding: 30px 0 20px 10px;
 }
+*/
 
 .view{
 	position: absolute;
-	top: 17px;
-	left: 1075px;
+	top: 20px;
+	right: 20px;
 	height: 35px;
 	width: 100px;
 	
@@ -171,18 +169,36 @@ button {
 	cursor: pointer;
 }
 .IT-container {
-  position: relative;
-  min-height: 395px;
-  max-width: 1170px;
-  margin: 70px auto 0px auto;
-  background-color: #ffffff;
-  border-radius: 30px;
-  box-shadow: 3px 3px 10px rgb(188, 188, 188);
-  padding: 19px 20px 80px 20px;
-  top: -657px;
-  left: 133px;
+	flex: 1;
+	min-height: 395px;
+	width: 100%;
+	background-color: #ffffff;
+	border-radius: 30px;
+	box-shadow: 3px 3px 10px rgb(188,188,188);
+	padding: 20px;
+	margin: 0;
+	position: relative;
+	z-index: 0;
 }
 
+.nav {
+	flex: 1;
+	min-height: 395px;
+	width: 70%;
+	background-color: #81241f;
+	
+	padding: 20px;
+	margin: 0;
+	position: relative;
+	z-index: 0;
+	color: white;	
+}
+
+#ticketTable{
+	width: 100%;
+	border-collapse: collapse;
+	text-align:left;
+}
 .report-header {
   height: 80px;
   width: 100%;
