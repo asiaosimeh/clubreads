@@ -1,56 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>ClubReads IT Ticket Form Page</title>
+    <style>
+        .ticket-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+        .ticket-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #81241f;
+        }
 
-<title> ClubReads IT Ticket Form Page</title>
-<title> ClubReads IT Ticket Form Page </title>
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #submitBtn {
+            width: 100%;
+            padding: 12px;
+            background-color: #81241f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #submitBtn:hover {
+            background-color: #5f1b17;
+        }
+
+        .header-btn {
+            padding: 8px 16px;
+            color: #81241f;
+            background-color: white;
+            border: 1px solid #81241f;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .header-btn:hover {
+            background-color: #f2f2f2;
+        }
+
+        .auth-buttons {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .auth-buttons a {
+            margin-right: 10px;
+        }
+    </style>
+</head>
 <body>
 
-<div id="header">
-<h1 class="adamina-regular"> ClubReads' Create IT Ticket Form </h1>
+    <div id="header">
+        <h1 class="adamina-regular">ClubReads</h1>
+        <div class="auth-buttons">
+            <a href="index.html"><button type="button" class="header-btn">Home</button></a>
+            <button id="logout" class="header-btn">Logout</button>
+        </div>
+    </div>
 
+    <div class="ticket-container">
+        <h2>Create IT Ticket</h2>
+        <form id="itTicketForm">
+            <div class="form-group">
+                <label for="title">Ticket Title</label>
+                <input type="text" placeholder="Ticket title" name="title" id="title" required>
+            </div>
 
-<label for="title"><b>Create IT Ticket</b></label>
-<input type="text" placeholder="Ticket title" name="title" id="title" required>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" placeholder="Email address" name="email" id="email" required>
+            </div>
 
-<a href="index.html"><button type="button">Home</button></a>
-<button type="button" id="logout">Logout</button>
-</div>
+            <div class="form-group">
+                <label for="issue">Describe the Issue</label>
+                <textarea name="issue" id="issue" placeholder="Describe the issue here" required></textarea>
+            </div>
 
+            <p id="results">Click the button to submit your IT ticket</p>
 
-<br><br>
-<br><br>
+            <button type="submit" id="submitBtn">Create IT Ticket</button>
+            <button type="button" id="listTickets" class="header-btn">List all IT Tickets</button>
+        </form>
+    </div>
 
-<label for="email"><b>Enter email address</b></label>
-<input type="text" placeholder="Email address" name="email" id="email" required>
-
-<br><br>
-<br><br>
-
-<label for="issue"><b>Describe update/issue</b></label>
-<input type="text" style="height:125px;font-size:14pt;" placeholder="Place reason here" name="issue" id="issue" required>
-
-<br><br>
-<br><br>
-
-<br><br>
-<br><br>
-
-<p id="results">Click the button to submit your IT ticket</p>
-
-<button id="submit" type="submit" class="reg">Create IT Ticket</button>
-
-<button id="listTickets" type="button" class"reg">List all IT tickets</button>
-
-<div id="out"></div>
-
-<script src="it_ticketFunc.js"></script>
-
+    <script src="it_ticketFunc.js"></script>
 </body>
-</head>
 </html>
