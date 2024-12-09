@@ -78,6 +78,13 @@ button {
     cursor: pointer;
 }
 
+.mbdashBtn{
+    background-color: #81241f;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
 /* #searchResults {
     border: #81241f;
     border-style: solid;
