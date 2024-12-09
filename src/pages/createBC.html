@@ -7,7 +7,199 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+
     <title>Create Bookclub | ClubReads</title>
+
+
+
+    <title>Edit Bookclub | ClubReads</title>
+    </head>
+    <body>
+        <div id="header">
+            <h1 class="adamina-regular">ClubReads</h1>
+            <div class="auth-buttons">
+	        <!--<a href="index.html"><button id= "home">Home</button></a>-->
+                <button type="button" id="logout">Logout</button>
+            </div>
+        </div>
+	<h2>Fill out any data to replace. What is left blank will not change.</h2>
+
+	<p>Enter Club ID:</p>
+	<input type="text" id="clubID" name="clubID">
+
+	<p>Club Name: </p>
+	<input type="text" id="clubName" name="clubName">
+	
+	<br>
+
+	<p>Book Name: </p>
+	<input type="text" id="bookName" name="bookName">
+
+	<br>
+
+	<p>Book Author: </p>
+	<input type="text" id="author" name="author">
+
+	<br>
+
+	<p>Genre: </p>
+	<select id="genre" name="genre">
+		<option value="empty">No change</option>
+		<option value="ft">Fantasy</option>
+		<option value="myst">Mystery</option>
+		<option value="hr">Horror</option>
+		<option value="rm">Romance</option>
+		<option value="sf">Science Fiction</option>
+		<option value="ad">Adventure</option>
+		<option value="hst">Historical</option>
+		<option value="cmd">Comedy</option>
+		<option value="dm">Drama</option>
+		<option value="bio">Biography</option>
+		<option value="self">Self-Help</option>
+		<option value="cook">Cooking</option>
+		<option value="trv">Travel</option>
+	</select>
+
+	<br>
+
+	<p>Meeting Day:</p>
+	<select id="day" name="day">
+		<option value="empty">No change</option>
+		<option value="Su">Sunday</option>
+		<option value="M">Monday</option>
+		<option value="Tu">Tuesday</option>
+		<option value="W">Wednesday</option>
+		<option value="Th">Thursday</option>
+		<option value="F">Friday</option>
+		<option value="Sa">Saturday</option>
+	</select>
+
+	<br>
+
+	<p>Club Region:</p>
+	<select id="loc" name="loc">
+		<option value="empty">No change</option>
+		<option value="NE">North East</option>
+		<option value="SE">South East</option>
+		<option value="NW">North West</option>
+		<option value="SW">South West</option>
+		<option value="MW">Midwest</option>
+		<option value="west">West</option>
+	</select>
+
+	<br>
+
+	<p>Capacity:</p>
+	<input type="text" id="capacity" name="capacity">
+
+	<br>
+
+	<p>Start Date:</p>
+	<input type="text" id="sdate" name="sdate">
+
+	<br>
+
+	<p>End Date:</p>
+	<input type="text" id="edate" name="edate">
+	
+	<br><br>
+
+	<button type="button" id="submit">Submit</button>
+	<br><br><br>
+	
+	<script src="editBC.js"></script>
+
+    </body>
+
+
+    <title>Create Book Club | ClubReads</title>
+    <style>
+        body {
+            font-family: 'Adamina', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #6200ea;
+            color: white;
+        }
+
+        #header h1 {
+            margin: 0;
+        }
+
+        .auth-buttons button {
+            background-color: #ffffff;
+            color: #6200ea;
+            border: 1px solid #ffffff;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .auth-buttons button:hover {
+            background-color: #f3e5f5;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        main h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6200ea;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        #submit {
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #submit:hover {
+            background-color: #3700b3;
+        }
+    </style>
+
 </head>
 <body>
     <header id="header">
@@ -15,9 +207,15 @@
         <nav class="auth-buttons">
             <a href="index.html"><button id="home">Home</button></a>
             <a href="#"><button id="logout">Logout</button></a>
+
         </nav>
     </header>
     
+
+        </div>
+    </div>
+
+
     <main>
         <h2>Create Your Book Club</h2>
         <form id="createClubForm">

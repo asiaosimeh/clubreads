@@ -1,6 +1,13 @@
 // Front end script for edit-existing-book-club form
 
-urlPrefix = "http://34.23.105.171";
+urlPrefix = "http://35.196.73.111";
+
+if (name != null && name != "null"){
+	        document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
+} else {
+	        window.alert("ERROR - Member name not found!");
+	        window.location.href = "index.html";
+}
 
 document.getElementById("submit").addEventListener("click", function(){
 	// Define variables to collect the info from the form:
@@ -90,3 +97,14 @@ function checkFormat(clubID, clubName, bookName, author, genre, day, loc, capaci
 		return true;
 	}
 }
+
+
+document.getElementById("logout").addEventListener("click", function(){
+	        window.location.href = "logout.html";
+});
+
+document.getElementById('backToMbdash').addEventListener('click', function () {
+window.location.href = urlPrefix + "/mbdash.html";
+});
+
+

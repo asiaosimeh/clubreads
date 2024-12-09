@@ -6,6 +6,14 @@ let issue = document.getElementById('issue').value;
 let urlPrefix  = "http://35.196.73.111";
 
 
+if (name != null && name != "null"){
+	        document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
+} else {
+	        window.alert("ERROR - Member name not found!");
+	        window.location.href = "index.html";
+}
+
+
 function createTicket(){
 	
 	let email = document.getElementById("email").value;
@@ -99,6 +107,7 @@ function storeTicket(email, title, issue){
 }
 
 
-
-
+document.getElementById("logout").addEventListener("click", function(){
+	        window.location.href = "logout.html";
+});
 

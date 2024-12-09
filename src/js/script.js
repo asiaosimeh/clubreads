@@ -4,7 +4,7 @@
  *
  */
 
-let urlPrefix = "http://34.23.105.171";
+let urlPrefix = "http://35.196.73.111";
 
 function myclick(){
 	let topic = document.getElementById("genre").value;
