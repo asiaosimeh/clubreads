@@ -50,3 +50,7 @@ function checkFormat(fName, lName, bio, pub_email) {
 
 	return true;
 }
+
+document.getElementById('backToMbdash').addEventListener('click', function (){
+	window.location.href = urlPrefix + "/mbdash.html";
+});

@@ -90,3 +90,8 @@ function checkFormat(clubID, clubName, bookName, author, genre, day, loc, capaci
 		return true;
 	}
 }
+
+document.getElementById('backToMbdash').addEventListener('click', function () {
+window.location.href = urlPrefix + "/mbdash.html";
+});
+
