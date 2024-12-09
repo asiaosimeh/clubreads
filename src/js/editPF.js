@@ -1,6 +1,6 @@
 //Front end script to modify user info
 
-urlPrefix = "http://35.196.73.111";
+urlPrefix = "http://34.23.105.171";
 
 if (name != null && name != "null"){
 	        document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
