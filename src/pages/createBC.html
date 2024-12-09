@@ -8,6 +8,91 @@
     <link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <title>Create Book Club | ClubReads</title>
+    <style>
+        body {
+            font-family: 'Adamina', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #6200ea;
+            color: white;
+        }
+
+        #header h1 {
+            margin: 0;
+        }
+
+        .auth-buttons button {
+            background-color: #ffffff;
+            color: #6200ea;
+            border: 1px solid #ffffff;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .auth-buttons button:hover {
+            background-color: #f3e5f5;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        main h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #6200ea;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #submit {
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #submit:hover {
+            background-color: #3700b3;
+        }
+    </style>
 </head>
 <body>
     <div id="header">
@@ -19,8 +104,8 @@
     </div>
     
     <main>
-        <h2 class="adamina-regular" style="text-align: center; color: #81241f;">Create a Book Club</h2>
-        <form id="createBookClubForm" style="max-width: 600px; margin: 0 auto; background: #fff; border: 1px solid #81241f; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2>Create a Book Club</h2>
+        <form id="createBookClubForm">
             <div class="form-group">
                 <label for="clubName">Club Name:</label>
                 <input type="text" id="clubName" name="clubName">
@@ -95,13 +180,9 @@
                 <input type="date" id="edate" name="edate">
             </div>
 
-            <button type="button" id="submit" style="background-color: #81241f; color: #fff; border: none; padding: 12px; width: 100%; border-radius: 4px; cursor: pointer;">Submit</button>
+            <button type="button" id="submit">Submit</button>
         </form>
     </main>
-
-    <footer id="footer">
-        <p>&copy; 2024 ClubReads. All Rights Reserved.</p>
-    </footer>
 
     <script src="createBC.js"></script>
 </body>
