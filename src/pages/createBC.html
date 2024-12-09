@@ -7,9 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-
     <title>Create Book Club | ClubReads</title>
-
 </head>
 <body>
     <div id="header">
@@ -17,30 +15,28 @@
         <div class="auth-buttons">
             <a href="index.html"><button id="home">Home</button></a>
             <a href="#"><button id="logout">Logout</button></a>
-
-
-        </nav>
-    </header>
-    
-
         </div>
     </div>
-
+    
     <main>
-        <h2 class="adamina-regular" style="text-align: center; color: #81241f;">Create a New Book Club</h2>
-        <form class="club-container" id="createBookClubForm">
-            <fieldset>
-                <legend>Club Details</legend>
-
+        <h2 class="adamina-regular" style="text-align: center; color: #81241f;">Create a Book Club</h2>
+        <form id="createBookClubForm" style="max-width: 600px; margin: 0 auto; background: #fff; border: 1px solid #81241f; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <div class="form-group">
                 <label for="clubName">Club Name:</label>
-                <input type="text" id="clubName" name="clubName" required>
+                <input type="text" id="clubName" name="clubName">
+            </div>
 
+            <div class="form-group">
                 <label for="bookName">Book Name:</label>
-                <input type="text" id="bookName" name="bookName" required>
+                <input type="text" id="bookName" name="bookName">
+            </div>
 
+            <div class="form-group">
                 <label for="author">Book Author:</label>
-                <input type="text" id="author" name="author" required>
+                <input type="text" id="author" name="author">
+            </div>
 
+            <div class="form-group">
                 <label for="genre">Genre:</label>
                 <select id="genre" name="genre">
                     <option value="ft">Fantasy</option>
@@ -57,7 +53,9 @@
                     <option value="cook">Cooking</option>
                     <option value="trv">Travel</option>
                 </select>
+            </div>
 
+            <div class="form-group">
                 <label for="day">Meeting Day:</label>
                 <select id="day" name="day">
                     <option value="Su">Sunday</option>
@@ -68,7 +66,9 @@
                     <option value="F">Friday</option>
                     <option value="Sa">Saturday</option>
                 </select>
+            </div>
 
+            <div class="form-group">
                 <label for="loc">Club Region:</label>
                 <select id="loc" name="loc">
                     <option value="NE">North East</option>
@@ -78,26 +78,30 @@
                     <option value="MW">Midwest</option>
                     <option value="west">West</option>
                 </select>
-
-                <label for="capacity">Capacity:</label>
-                <input type="number" id="capacity" name="capacity" min="1" required>
-
-                <label for="sdate">Start Date:</label>
-                <input type="date" id="sdate" name="sdate" required>
-
-                <label for="edate">End Date:</label>
-                <input type="date" id="edate" name="edate" required>
-            </fieldset>
-
-            <div style="text-align: center; margin-top: 20px;">
-                <button type="submit" id="submit">Submit</button>
             </div>
+
+            <div class="form-group">
+                <label for="capacity">Capacity:</label>
+                <input type="text" id="capacity" name="capacity">
+            </div>
+
+            <div class="form-group">
+                <label for="sdate">Start Date:</label>
+                <input type="date" id="sdate" name="sdate">
+            </div>
+
+            <div class="form-group">
+                <label for="edate">End Date:</label>
+                <input type="date" id="edate" name="edate">
+            </div>
+
+            <button type="button" id="submit" style="background-color: #81241f; color: #fff; border: none; padding: 12px; width: 100%; border-radius: 4px; cursor: pointer;">Submit</button>
         </form>
     </main>
 
-    <div id="footer">
-        <p>&copy; 2024 ClubReads. All rights reserved.</p>
-    </div>
+    <footer id="footer">
+        <p>&copy; 2024 ClubReads. All Rights Reserved.</p>
+    </footer>
 
     <script src="createBC.js"></script>
 </body>
