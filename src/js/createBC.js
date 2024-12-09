@@ -1,6 +1,6 @@
 // Front end script for create-book-club form
 
-urlPrefix = "http://35.196.73.111";
+urlPrefix = "http://34.23.105.171";
 
 document.getElementById("submit").addEventListener("click", function(){
 	// Define variables to collect the info from the form:
@@ -64,4 +64,3 @@ function checkFormat(clubName, bookName, author, genre, day, loc, capacity, sdat
 		return true;
 	}
 }
-
