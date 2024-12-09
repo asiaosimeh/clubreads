@@ -1,6 +1,6 @@
 // Script for the Member Dashboard page
 
-urlPrefix = "http://35.196.73.111";
+urlPrefix = "http://34.23.105.171";
 
 let name = sessionStorage.getItem("name");
 

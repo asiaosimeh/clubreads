@@ -1,6 +1,6 @@
 // Front end script for edit-existing-book-club form
 
-urlPrefix = "http://35.196.73.111";
+urlPrefix = "http://34.23.105.171";
 
 if (name != null && name != "null"){
 	        document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";

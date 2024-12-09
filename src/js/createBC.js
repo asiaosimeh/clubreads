@@ -1,17 +1,10 @@
 // Front end script for edit-existing-book-club form
 
-urlPrefix = "http://35.196.73.111";
-
-if (name != null && name != "null"){
-	        document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
-} else {
-	        window.alert("ERROR - Member name not found!");
-	        window.location.href = "index.html";
-}
+urlPrefix = "http://34.23.105.171";
 
 document.getElementById("submit").addEventListener("click", function(){
 	// Define variables to collect the info from the form:
-	let clubID = document.getElementById("clubID").value;
+
 	let clubName = document.getElementById("clubName").value;
 	let bookName = document.getElementById("bookName").value;
 	let author = document.getElementById("author").value;
@@ -22,13 +15,13 @@ document.getElementById("submit").addEventListener("click", function(){
 	let sdate = document.getElementById("sdate").value;
 	let edate = document.getElementById("edate").value;
 
-	console.log("INPUT: ", clubID, clubName, bookName, author, genre, day, loc, capacity, sdate, edate);
+	console.log("INPUT: ", clubName, bookName, author, genre, day, loc, capacity, sdate, edate);
 	//////////////////
-	if (checkFormat(clubID, clubName, bookName, author, genre, day, loc, capacity, sdate, edate)){
+	if (checkFormat(clubName, bookName, author, genre, day, loc, capacity, sdate, edate)){
 
 	//console.log("INPUT: ", clubName, bookName, author, genre, day, loc, capacity, sdate, edate);
 	
-	let reqUrl = urlPrefix + "/editBC?"
+	let reqUrl = urlPrefix + "/createBC?"
 	if (clubName != "") {reqUrl += "clubName=" + clubName}
 		else {reqUrl += "clubName=no"}
 	if (bookName != "") {reqUrl += "&bookName=" + bookName}
@@ -47,7 +40,7 @@ document.getElementById("submit").addEventListener("click", function(){
 		else {reqUrl +="&sdate=no"}
 	if (edate != "") {reqUrl += "&edate=" + edate}
 		else {reqUrl += "&edate=no"}
-	reqUrl += "&clubid=" + clubID; // Club ID cannot be empty
+	reqUrl += "&hostid=" + sessionStorage.getItem("userid");
 	
 	// Send the URL request using Fetch API:
 	fetch(reqUrl)
@@ -57,6 +50,8 @@ document.getElementById("submit").addEventListener("click", function(){
 		})
 		.then(data => {
 			console.log("RECIEVED: ", data);
+			window.alert("Book club successfully created!");
+			window.location.href ="mbdash.html";
 			if (data.message == "success"){
 				pasteData(data);
 			}
@@ -75,17 +70,14 @@ function pasteData(data) {
 	window.location.href = urlPrefix + "/mbdash.html";
 }
 
-function checkFormat(clubID, clubName, bookName, author, genre, day, loc, capacity, sdate, edate){
+function checkFormat(clubName, bookName, author, genre, day, loc, capacity, sdate, edate){
 	// If nothing fails its format check, return true. Otherwise, return false:
 	/////////
 	let datePattern = /\d{4}[-]\d{2}[-]\d{2}/
 	
-	console.log(clubID);
+	
 	// Check that a value has been entered for every textbox field:
-	if (!sessionStorage.getItem("clubIDList").split(",").includes(clubID)) {
-		window.alert("Club with ID " + clubID + " either doesn't exist, or is not a club you host.\nPlease try a different value.");
-		return false;
-	} else if (clubName == "" && bookName == "" && author == "" && genre == "empty" && day == "empty" && loc == "empty" && capacity == "" && sdate == "" && edate == "") {
+	 if (clubName == "" && bookName == "" && author == "" && genre == "empty" && day == "empty" && loc == "empty" && capacity == "" && sdate == "" && edate == "") {
 		window.alert("No changes made.");
 		window.location.href = "mbdash.html";
 	} else if (capacity != "" && capacity < 5) {
