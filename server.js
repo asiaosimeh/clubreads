@@ -392,6 +392,41 @@ function createBC(res, query) {
 	}); // Callback function
 }
 
+function editBC(res, query) {
+	console.log("EDITING: ", query);
+
+	queryString = "UPDATE Clubs SET ";
+	
+	let updateCounter = 0; // Keeps track of # of updated fields in the query, to deal with placing commas
+	if (query.clubName != "no") {if (updateCounter !=0){queryString += ", "} queryString += "club_name='" + query.clubName + "'"; updateCounter += 1}
+	if (query.bookName != "no") {if (updateCounter !=0){queryString += ", "} queryString += "book_name='" + query.bookName + "'"; updateCounter += 1}
+	if (query.author != "no") {if (updateCounter !=0){queryString += ", "} queryString += "author='" + query.author + "'"; updateCounter += 1}
+	if (query.genre != "no") {if (updateCounter !=0){queryString += ", "} queryString += "genre='" + parseGenreCode(query.genre) + "'"; updateCounter += 1}
+	if (query.day != "no") {if (updateCounter !=0){queryString += ", "} queryString += "meeting_day='" + parseDayCode(query.day) + "'"; updateCounter += 1}
+	if (query.loc != "no") {if (updateCounter !=0){queryString += ", "} queryString += "region='" + parseLocCode(query.loc) + "'"; updateCounter += 1}
+	if (query.capacity != "no") {if (updateCounter !=0){queryString += ", "} queryString += "capacity='" + query.capacity + "'"; updateCounter += 1}
+	if (query.sdate != "no") {if (updateCounter !=0){queryString += ", "} queryString += "start_date='" + query.sdate + "'"; updateCounter += 1}
+	if (query.edate != "no") {if (updateCounter !=0){queryString += ", "} queryString += "end_date='" + query.edate + "'"; updateCounter += 1}
+	
+	queryString += " WHERE club_id=" + query.clubid;
+
+	console.log("FINAL QUERY ", queryString);
+
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			console.log("ERROR: ", error);
+		} else {
+			console.log("CONNECTION SUCCESS");
+
+			console.log(results);
+
+			res.writeHead(200, {'Content-Type' : 'text/plain'});
+			res.write(JSON.stringify({'message' : 'success'}));
+			res.end();
+		} // End if/else
+	}); // Callback function
+}
 
 function loginUser(res, query) {
 	let user = query.user;
@@ -511,9 +546,12 @@ serveStatic = function (req, res) {
 			break;
 		case "/register":
 			registerUser(res, q.query);
-
+			break;
 		case "/createBC":
 			createBC(res, q.query);
+			break;
+		case "/editBC":
+			editBC(res, q.query);
 			break;
 		case "/adminIT":
 			adminIT(res);
@@ -528,7 +566,7 @@ serveStatic = function (req, res) {
 			editPF(res, q.query);
 			break;
 		case "/favicon.ico":
-				break;
+			break;
 		default:
 			fs.readFile(fileName, function(err, content){
         		        console.log(err);

@@ -1,6 +1,6 @@
 // Front end script for edit-existing-book-club form
 
-urlPrefix = "http://34.23.105.171";
+urlPrefix = "http://35.196.73.111";
 
 document.getElementById("submit").addEventListener("click", function(){
 	// Define variables to collect the info from the form:
@@ -90,8 +90,4 @@ function checkFormat(clubID, clubName, bookName, author, genre, day, loc, capaci
 		return true;
 	}
 }
-
-document.getElementById('backToMbdash').addEventListener('click', function () {
-window.location.href = urlPrefix + "/mbdash.html";
-});
 
