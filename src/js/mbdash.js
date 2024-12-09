@@ -1,14 +1,28 @@
 // Script for the Member Dashboard page
 
-urlPrefix = "http://35.196.73.111";
+urlPrefix = "http://34.23.105.171";
 
 let name = sessionStorage.getItem("name");
+
+/*
+let loggedOut = sessionStorage.getItem("loggedOut" === "true");
+
+if (!name && !loggedOut){
+	window.alert("ERROR - Member name not found!");
+	window.location.href = urlPrefix +"/";
+} else if (loggedOut) {
+	sessionStorage.removeItem("loggedOut");
+	window.location.href = urlPrefix + "/logout.html";
+} else {
+	document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
+}
+*/
 
 if (name != null){
 	document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
 } else {
 	window.alert("ERROR - Member name not found!");
-	window.location.href = urlPrefix + "/";
+	window.location.href = urlPrefix + "/logout.html"; //trying to figure out why the logout goes back to this if statement
 }
 
 
@@ -59,6 +73,18 @@ function pasteData(data){
 }
 
 
+function logout(){
+	sessionStorage.clear();
+	sessionStorage.setItem("loggedOut", "true");
+	window.location.href = urlPrefix + "/logout.html";
+}
+
+document.addEventListener ("DOMContentLoaded", function (){
+	const logoutButton = document.getElementById("logout");
+	if (logoutButton) {
+		logoutButton.addEventListener("click", logout);
+	}
+});
 // Run the output command onload:
 loadInfo();
 

@@ -2,6 +2,10 @@ body {
     background-color: #f2f1ff ;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height:100vh;
+    
 }
 
 #header {
@@ -10,6 +14,8 @@ body {
     align-items: center;
     background-color: #81241f;
     padding: 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .welcomeMsg{
@@ -119,13 +125,44 @@ button {
 	vertical-align: 0px;
 }
 
+.club-container{
+	margin:15px 0;
+	padding: 10px;
+	border: 1px solid #81241f;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	cursor: pointer;
+}
+
+.club-name{
+	font-size: 1.2em;
+	color: #81241f;
+	margin: 0;
+}
+
+.club-details{
+	margin-top: 10px;
+	padding:10px;
+	background-color: #fff;
+	border-top: 1px solid #81241f;
+	display: none;
+}
+
+.club-details p {
+	margin: 5px 0;
+	color: #333;
+}
+
+.club-details h4{
+	color:#81241f
+	margin-top: 10px;
+}
 #footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    position: relative;
+    margin-top:auto;
     width:100%;
-    align-items: center;
     text-align: center;
     background-color: #81241f;
-    padding: 10px 20px;
+    color: white;
+    padding: 0;
 }
