@@ -60,4 +60,8 @@ function checkFormat(fName, lName, bio, pub_email) {
 
 document.getElementById("logout").addEventListener("click", function(){
 	        window.location.href = "logout.html";
+
+document.getElementById('backToMbdash').addEventListener('click', function (){
+	window.location.href = urlPrefix + "/mbdash.html";
+
 });

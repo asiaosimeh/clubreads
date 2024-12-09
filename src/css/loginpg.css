@@ -27,6 +27,29 @@ body {
   text-align: left;
 }
 
+.logout-container {
+	width: 300px;
+	padding: 20px;
+	background-color: #81241f;
+	box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+	border-radius: 8px;
+	text-align: center;
+	color: white;
+	font-family: 'Adamina', serif;
+}
+
+.logout-container a {
+	display: block;
+	margin-top: 20px
+	font-size: 16px;
+	color: white;
+	text-decoration: underline;
+}
+
+.logout-container a:hover{
+	color: #d3d3d3;
+}
+
 h2 {
   margin-bottom: 20px;
   color: white;
