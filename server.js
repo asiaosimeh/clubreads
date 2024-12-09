@@ -187,7 +187,7 @@ function parseSearch(res, search){
 
 
 function rtrvDB(topic, author, loc, day, callback) {
-	let queryString = "SELECT Clubs.club_id, Clubs.club_name,Clubs.book_name,Clubs.author,Clubs.genre,Clubs.meeting_day,Clubs.region, Users.first_name, Users.last_name,Users.bio, Users.public_email FROM Clubs LEFT JOIN Users ON Clubs.hosted = Users.user_id"; // Populate later with the SQL query string
+	let queryString = "SELECT Clubs.club_id, Clubs.club_name, Clubs.book_name, Clubs.author, Clubs.genre, Clubs.meeting_day, Clubs.region, Users.public_email, Users.first_name, Users.last_name, Users.bio FROM Clubs INNER JOIN Users ON Clubs.hosted = Users.user_id;"; // Populate later with the SQL query string
 
 	/////
 	// Check what fields were passed by the user, and create the SQL query accordingly:
