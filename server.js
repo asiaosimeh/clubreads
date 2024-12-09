@@ -513,6 +513,27 @@ function editPF(res,query){
 }
 
 
+function delClub(res, query) {
+	console.log("DELETING CLUB: ", query.id);
+
+	let queryString = "DELETE FROM Clubs WHERE club_id=" + query.id;
+
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			console.log("Error!", error);
+		} else {
+			console.log("Success!");
+			console.log(results);
+
+			res.writeHead(200, {'Content-Type':'text/plain'});
+			res.write(JSON.stringify({'message' : 'success'}));
+			res.end();
+		}
+	});
+}
+
+
 // Main function, decides which other function to call to server the client's request:
 serveStatic = function (req, res) {
 	q = url.parse(req.url, true);
@@ -564,6 +585,9 @@ serveStatic = function (req, res) {
 			break;
 		case "/updateProfile":
 			editPF(res, q.query);
+			break;
+		case "/delclub":
+			delClub(res, q.query);
 			break;
 		case "/favicon.ico":
 			break;
