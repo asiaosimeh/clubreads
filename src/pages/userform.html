@@ -1,58 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<title> Sign-up | ClubReads</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>Sign-Up | ClubReads</title>
 </head>
 <body>
-<div id="header">
-<h1 class="adamina-regular"> ClubReads</h1>
-<a href="index.html"><button type="button">Home</button></a>
-</div>
+    <header id="header">
+        <h1 class="adamina-regular">ClubReads</h1>
+        <nav>
+            <a href="index.html"><button type="button">Home</button></a>
+        </nav>
+    </header>
 
-<br></br>
+    <main>
+        <h2>Sign-Up</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter username" name="username" id="username" required>
+            </div>
 
-<label for="username"><b>Username</b></label>
-<input type="text" placeholder="Enter username" name="username" id="username" required>
-<br><br>
-<br><br>
+            <div class="form-group">
+                <label for="email"><b>E-mail</b></label>
+                <input type="email" placeholder="Enter email address" name="email" id="email" required>
+            </div>
 
-<label for="email"><b>E-mail</b></label>
-<input type="text" placeholder="Enter email address" name="email" id="email" required>
+            <div class="form-group">
+                <label for="fname"><b>First Name</b></label>
+                <input type="text" placeholder="Enter first name" name="fname" id="fname" required>
+            </div>
 
-<br><br>
-<br><br>
+            <div class="form-group">
+                <label for="lname"><b>Last Name</b></label>
+                <input type="text" placeholder="Enter last name" name="lname" id="lname" required>
+            </div>
 
-<label for="fname"><b>First name</b></label>
-<input type="text" placeholder="Enter first Name" name="fname" id="fname" required>
+            <div class="form-group">
+                <label for="pass"><b>Password</b></label>
+                <input type="password" placeholder="Enter password" name="pass" id="pass" required>
+            </div>
 
-<br><br>
-<br><br>
+            <div class="form-group">
+                <label for="repeat"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat password" name="repeat" id="repeat" required>
+            </div>
 
-<label for="lname"><b>Last name</b></label>
-<input type="text" placeholder="Enter last Name" name="lname" id="lname" required>
+            <div class="form-group">
+                <button type="submit" class="reg" id="submitBtn">Register</button>
+            </div>
+        </form>
+    </main>
 
-<br><br>
-<br><br>
-
-<label for="pass"><b>Password</b></label>
-<input type="password" placeholder="Enter password" name="pass" id="pass" required>
-
-<br><br>
-<br><br>
-
-<label for="repeat"><b>Repeat password</b></label>
-<input type="password" placeholder="Repeat password" name="repeat" id="repeat" required>
-
-<br><br>
-<br><br>
-
-<button type="submit" class="reg" id="submitBtn">Register</button>
-
-<script src="userformverify.js"></script>
-
+    <script src="userformverify.js"></script>
 </body>
 </html>
