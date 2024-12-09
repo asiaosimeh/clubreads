@@ -64,3 +64,8 @@ function checkFormat(clubName, bookName, author, genre, day, loc, capacity, sdat
 		return true;
 	}
 }
+
+document.getElementById('backToMbdash').addEventListener('click', function () {
+window.location.href = urlPrefix + "/mbdash.html";
+});
+
