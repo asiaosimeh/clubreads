@@ -457,6 +457,27 @@ function hostedClubsList(res, query){
 	
 
 
+function editPF(res,query){
+	console.log("Received: ", query);
+
+	let queryString = "UPDATE Users SET first_name = '" +query.fName+ "', last_name ='" +query.lName + "', bio = '" + query.bio + "', public_email ='" +query.pub_email + "' WHERE user_id = " +query.hostid;
+
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			console.log("Error!", error);
+		}else {
+			console.log("Success!");
+			console.log(results);
+
+			res.writeHead(200, {'Content-Type':'text/plain'});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	});
+}
+
+
 // Main function, decides which other function to call to server the client's request:
 serveStatic = function (req, res) {
 	q = url.parse(req.url, true);
@@ -502,6 +523,9 @@ serveStatic = function (req, res) {
 			break;
 		case "/hostedclubs":
 			hostedClubsList(res, q.query);
+			break;
+		case "/updateProfile":
+			editPF(res, q.query);
 			break;
 		case "/favicon.ico":
 				break;
