@@ -7,54 +7,112 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <title>Sign-Up | ClubReads</title>
+    <title>Sign-up | ClubReads</title>
+    <style>
+        .signup-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #81241f;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #submitBtn {
+            width: 100%;
+            padding: 12px;
+            background-color: #81241f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #submitBtn:hover {
+            background-color: #5f1b17;
+        }
+
+        .header-btn {
+            padding: 8px 16px;
+            color: #81241f;
+            background-color: white;
+            border: 1px solid #81241f;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .header-btn:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <header id="header">
+    <div id="header">
         <h1 class="adamina-regular">ClubReads</h1>
-        <nav>
-            <a href="index.html"><button type="button">Home</button></a>
-        </nav>
-    </header>
+        <a href="index.html"><button type="button" class="header-btn">Home</button></a>
+    </div>
 
-    <main>
-        <h2>Sign-Up</h2>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
         <form id="signupForm">
             <div class="form-group">
-                <label for="username"><b>Username</b></label>
+                <label for="username">Username</label>
                 <input type="text" placeholder="Enter username" name="username" id="username" required>
             </div>
 
             <div class="form-group">
-                <label for="email"><b>E-mail</b></label>
+                <label for="email">E-mail</label>
                 <input type="email" placeholder="Enter email address" name="email" id="email" required>
             </div>
 
             <div class="form-group">
-                <label for="fname"><b>First Name</b></label>
+                <label for="fname">First Name</label>
                 <input type="text" placeholder="Enter first name" name="fname" id="fname" required>
             </div>
 
             <div class="form-group">
-                <label for="lname"><b>Last Name</b></label>
+                <label for="lname">Last Name</label>
                 <input type="text" placeholder="Enter last name" name="lname" id="lname" required>
             </div>
 
             <div class="form-group">
-                <label for="pass"><b>Password</b></label>
+                <label for="pass">Password</label>
                 <input type="password" placeholder="Enter password" name="pass" id="pass" required>
             </div>
 
             <div class="form-group">
-                <label for="repeat"><b>Repeat Password</b></label>
+                <label for="repeat">Repeat Password</label>
                 <input type="password" placeholder="Repeat password" name="repeat" id="repeat" required>
             </div>
 
-            <div class="form-group">
-                <button type="submit" class="reg" id="submitBtn">Register</button>
-            </div>
+            <button type="submit" id="submitBtn">Register</button>
         </form>
-    </main>
+    </div>
 
     <script src="userformverify.js"></script>
 </body>
