@@ -1,6 +1,6 @@
 // Script for the Member Dashboard page
 
-urlPrefix = "http://34.23.105.171";
+urlPrefix = "http://35.196.73.111";
 
 let name = sessionStorage.getItem("name");
 
@@ -18,11 +18,11 @@ if (!name && !loggedOut){
 }
 */
 
-if (name != null){
+if (name != null && name != "null"){
 	document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
 } else {
 	window.alert("ERROR - Member name not found!");
-	window.location.href = urlPrefix + "/logout.html"; //trying to figure out why the logout goes back to this if statement
+	window.location.href = "index.html";
 }
 
 
@@ -88,3 +88,6 @@ document.addEventListener ("DOMContentLoaded", function (){
 // Run the output command onload:
 loadInfo();
 
+document.getElementById("logout").addEventListener("click", function(){
+	        window.location.href = "logout.html";
+});
