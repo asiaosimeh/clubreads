@@ -418,7 +418,7 @@ function loginUser(res, query) {
 				if (e[1] == user && e[3] == pass) {
 					// Send a message flagging that a match was found
 					console.log("Login match");
-					outMessage = JSON.stringify({message : 'match', name : e[4], userid : e[0]});
+					outMessage = JSON.stringify({message : 'match', name : e[4], userid : e[0], is_admin: e[7]}); //passing is_admin value... AGS
 		
 					match = true;
 				} else { console.log(e[1], e[3]) }
@@ -455,6 +455,27 @@ function hostedClubsList(res, query){
 	});
 }
 	
+
+
+function editPF(res,query){
+	console.log("Received: ", query);
+
+	let queryString = "UPDATE Users SET first_name = '" +query.fName+ "', last_name ='" +query.lName + "', bio = '" + query.bio + "', public_email ='" +query.pub_email + "' WHERE user_id = " +query.hostid;
+
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			console.log("Error!", error);
+		}else {
+			console.log("Success!");
+			console.log(results);
+
+			res.writeHead(200, {'Content-Type':'text/plain'});
+			res.write(JSON.stringify(results));
+			res.end();
+		}
+	});
+}
 
 
 // Main function, decides which other function to call to server the client's request:
@@ -502,6 +523,9 @@ serveStatic = function (req, res) {
 			break;
 		case "/hostedclubs":
 			hostedClubsList(res, q.query);
+			break;
+		case "/updateProfile":
+			editPF(res, q.query);
 			break;
 		case "/favicon.ico":
 				break;
