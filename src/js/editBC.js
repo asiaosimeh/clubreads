@@ -2,6 +2,13 @@
 
 urlPrefix = "http://35.196.73.111";
 
+if (name != null && name != "null"){
+	        document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
+} else {
+	        window.alert("ERROR - Member name not found!");
+	        window.location.href = "index.html";
+}
+
 document.getElementById("submit").addEventListener("click", function(){
 	// Define variables to collect the info from the form:
 	let clubID = document.getElementById("clubID").value;
@@ -91,3 +98,6 @@ function checkFormat(clubID, clubName, bookName, author, genre, day, loc, capaci
 	}
 }
 
+document.getElementById("logout").addEventListener("click", function(){
+	        window.location.href = "logout.html";
+});
