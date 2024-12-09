@@ -8,8 +8,18 @@
   <title>Logout | ClubReads</title>
 </head>
 <body>
+  <div class=logout-container">
   <h1> You have successfully logged out.</h1>
   <a href="index.html"> Return to Homepage</a>
+
+  
+  <script>
+    sessionStorage.setItem("name", null);
+    sessionStorage.setItem("userid", null);
+    sessionStorage.setItem("is_admin", null);
+  </script>
+
+  </div>
 
 </body>
 </html>

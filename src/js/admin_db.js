@@ -1,5 +1,14 @@
-let urlPrefix = "http://34.23.105.171"; //change to vm address
+let urlPrefix = "http://33.196.73.111"; //change to vm address
 console.log('STARTING');
+
+
+if (name != null && name != "null"){
+	        document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
+} else {
+	        window.alert("ERROR - Member name not found!");
+	        window.location.href = "index.html";
+}
+
 document.getElementById('viewall').addEventListener("click", function(){
 	let reqUrl = urlPrefix + "/listit"; //changed from adminIT to listit
 	console.log('clicked...');
@@ -38,4 +47,8 @@ document.getElementById('viewall').addEventListener("click", function(){
 		.catch(error => {
 			console.error("Error with fetch operation: ", error);
 		});
+});
+
+document.getElementById("logout").addEventListener("click", function(){
+	window.location.href = "logout.html";
 });
