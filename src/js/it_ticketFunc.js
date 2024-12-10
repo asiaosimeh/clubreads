@@ -6,12 +6,12 @@ let issue = document.getElementById('issue').value;
 //let urlPrefix  = "http://34.23.105.171";
 
 
-if (name != null && name != "null"){
+/*if (name != null && name != "null"){
 	        document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
 } else {
 	        window.alert("ERROR - Member name not found!");
 	        window.location.href = "index.html";
-}
+}*/
 
 
 function createTicket(){
@@ -36,15 +36,14 @@ function createTicket(){
 
 }
 
-document.getElementById("submit").addEventListener("click", function(){
+document.getElementById("submitBtn").addEventListener("click", function(){
 	createTicket();
 	emailExists();
-	
 
-}
+});
 
-);
 
+/*
 document.getElementById("listTickets").addEventListener("click", function(){
 	let reqUrl = urlPrefix + "/listit";
 
@@ -68,7 +67,7 @@ document.getElementById("listTickets").addEventListener("click", function(){
 		});
 	// End fetch op
 });
-
+*/
 
 //Search database for email. 
 //If it doesn't exist, put a popup.
