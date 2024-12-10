@@ -1,4 +1,4 @@
-let urlPrefix = "http://34.23.105.171"; //change to vm address
+//let urlPrefix = "http://34.23.105.171"; //change to vm address
 console.log('STARTING');
 
 

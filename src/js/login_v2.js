@@ -1,6 +1,6 @@
 // Second version of login.js
 
-let urlPrefix = "http://34.23.105.171";
+//let urlPrefix = "http://34.23.105.171";
 
 document.getElementById("submit").addEventListener("click", function () {
 	let user = document.getElementById("username").value;

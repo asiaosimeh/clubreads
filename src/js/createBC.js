@@ -1,6 +1,6 @@
 // Front end script for edit-existing-book-club form
 
-urlPrefix = "http://34.23.105.171";
+//urlPrefix = "http://34.23.105.171";
 
 document.getElementById("submit").addEventListener("click", function(){
 	// Define variables to collect the info from the form:
