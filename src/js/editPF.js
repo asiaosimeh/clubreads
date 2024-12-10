@@ -2,11 +2,9 @@
 
 //urlPrefix = "http://34.23.105.171";
 
-if (name != null && name != "null"){
-	        document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
-} else {
-	        window.alert("ERROR - Member name not found!");
-	        window.location.href = "index.html";
+if (name == null && name == "null"){
+	window.alert("ERROR - Member name not found!");
+	window.location.href = "index.html";
 }
 
 document.getElementById("submit").addEventListener("click", function() {
@@ -37,6 +35,7 @@ console.log("We got something");
 				<p>Public Email: ${pub_email}</p>
 				<p>Bio: ${bio}</p>
 				`;
+				sessionStorage.setItem("name", `${fName}`);
 			})
 			.catch(error =>{
 				console.error("Error with Fetch operation: ", error);
@@ -60,6 +59,7 @@ function checkFormat(fName, lName, bio, pub_email) {
 
 document.getElementById("logout").addEventListener("click", function(){
 	        window.location.href = "logout.html";
+});
 
 document.getElementById('backToMbdash').addEventListener('click', function (){
 	window.location.href = urlPrefix + "/mbdash.html";
