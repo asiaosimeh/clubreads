@@ -3,7 +3,7 @@ let title = document.getElementById('title').value;
 let email = document.getElementById('email').value;
 let issue = document.getElementById('issue').value;
 
-let urlPrefix  = "http://34.23.105.171";
+//let urlPrefix  = "http://34.23.105.171";
 
 
 if (name != null && name != "null"){

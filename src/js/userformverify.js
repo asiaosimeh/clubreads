@@ -1,5 +1,5 @@
 
-let urlPrefix = "http://34.23.105.171";
+//let urlPrefix = "http://34.23.105.171";
 
 // Verify format of both password fields:
 function userPass(){
