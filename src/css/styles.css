@@ -4,10 +4,16 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height:100vh;
-    
+    min-height:100vh;  
 }
 
+#home-page{
+  background-image: url('homePage.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  
+}
 #header {
     display: flex;
     justify-content:space-between;
@@ -73,7 +79,7 @@ button {
 }
 
 #SearchMenu {
-    border: 4px solid #81241f;
+    border: 4px solid black;
     padding: 10px 15px;
 }
 
@@ -172,7 +178,22 @@ details p {
 	color:#81241f
 	margin-top: 10px;
 }
-#footer{
+
+#mbdash {
+  background-image: url('memberDashboard.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#clubsList{
+	width: 60%;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+
+/*#footer{
     position: relative;
     margin-top:auto;
     width:100%;
@@ -180,4 +201,4 @@ details p {
     background-color: #81241f;
     color: white;
     padding: 0;
-}
+}*/
