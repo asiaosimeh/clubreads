@@ -193,6 +193,8 @@ function rtrvDB(topic, author, loc, day, callback) {
 	// Check what fields were passed by the user, and create the SQL query accordingly:
 	/////
 	
+	console.log(topic,author,loc,day);
+	
 	// NONE GIVEN (send all to the client):
 	if (topic == "empty" && author == "" && loc == "empty" && day == "empty") { queryString += ";"; }
 	// ALL GIVEN:
@@ -220,7 +222,7 @@ function rtrvDB(topic, author, loc, day, callback) {
 	// TOPIC AND LOCATION:
 	else if (topic != "empty" && author == "" && loc != "empty" && day == "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND region='" + parseLocCode(loc) + "';"; }
 	// TOPIC AND DAY:
-	else if (topic != "empty" && author == "" && loc == "empty" && day != "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND day='" + parseDayCode(day) + "';"; }
+	else if (topic != "empty" && author == "" && loc == "empty" && day != "empty") { queryString += "WHERE genre='" + parseGenreCode(topic) + "' AND meeting_day='" + parseDayCode(day) + "';"; }
 	// AUTHOR AND LOCATION:
 	else if (topic == "empty" && author != "" && loc != "empty" && day == "empty") { queryString += "WHERE author='" + author + "' AND region='" + parseLocCode(loc) + "';"; }
 	// AUTHOR AND DAY:
@@ -239,7 +241,7 @@ function rtrvDB(topic, author, loc, day, callback) {
 	// ONLY LOCATION:
 	else if (topic == "empty" && author == "" && loc != "empty" && day == "empty") { queryString += "WHERE region='" + parseLocCode(loc) + "';"; }
 	// ONLY DAY:
-	else if (topic == "empty" && author == "" && loc == "empty" && day != "empty") { queryString += "WHERE meeting_day='" + parseDayCode(loc) + "';"; }
+	else if (topic == "empty" && author == "" && loc == "empty" && day != "empty") { queryString += "WHERE meeting_day='" + parseDayCode(day) + "';"; }
 	
 
 	console.log("Generated Query:", queryString); //debugging
