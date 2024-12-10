@@ -2,11 +2,9 @@
 console.log('STARTING');
 
 
-if (name != null && name != "null"){
-	        document.getElementById("welcomeMsg").innerHTML = "Welcome, " + name + "!";
-} else {
-	        window.alert("ERROR - Member name not found!");
-	        window.location.href = "index.html";
+if (name == null && name == "null"){
+        window.alert("ERROR - Member name not found!");
+        window.location.href = "index.html";
 }
 
 document.getElementById('viewall').addEventListener("click", function(){
