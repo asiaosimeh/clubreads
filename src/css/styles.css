@@ -4,10 +4,16 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height:100vh;
-    
+    min-height:100vh;  
 }
 
+#home-page{
+  background-image: url('homePage.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  
+}
 #header {
     display: flex;
     justify-content:space-between;
@@ -73,7 +79,7 @@ button {
 }
 
 #SearchMenu {
-    border: 4px solid #81241f;
+    border: 4px solid black;
     padding: 10px 15px;
 }
 
@@ -82,6 +88,47 @@ button {
     color: white;
     padding: 10px 20px;
     cursor: pointer;
+}
+
+#out {
+	width: 40%;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #f9f9f9;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+details{
+	margin: 15px 0;
+	padding: 10px;
+	border: 1px solid #81241f;
+	border-radius: 5px;
+	background-color: white;
+	cursor: pointer;
+	font-family: 'Adamina', serif;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+summary {
+	font-size: 1.2em;
+	font-weight: bold;
+	color: #81241f;
+	cursor: pointer;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+summary:hover{
+	color: #6200ea;
+	text-decoration: underline;
+}
+
+details p {
+	font-size: 16px;
+	color: #333;
+	margin: 10px 0;
+	line-height: 1.6;
 }
 
 .mbdashBtn{
@@ -131,7 +178,22 @@ button {
 	color:#81241f
 	margin-top: 10px;
 }
-#footer{
+
+#mbdash {
+  background-image: url('memberDashboard.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#clubsList{
+	width: 60%;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+
+/*#footer{
     position: relative;
     margin-top:auto;
     width:100%;
@@ -139,4 +201,4 @@ button {
     background-color: #81241f;
     color: white;
     padding: 0;
-}
+}*/
