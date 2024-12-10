@@ -563,6 +563,7 @@ serveStatic = function (req, res) {
 			parseSearch(res, q.query);
 			break;
 		case "/itticket":
+			console.log("got query!", q.query);
 			sendTicket(res, q.query);
 			break;
 		case "/listit":

@@ -1,8 +1,8 @@
-
+/*
 let title = document.getElementById('title').value;
 let email = document.getElementById('email').value;
 let issue = document.getElementById('issue').value;
-
+*/
 //let urlPrefix  = "http://34.23.105.171";
 
 
@@ -24,8 +24,8 @@ function createTicket(){
 	if (title == "" || issue == ""){
 		window.alert("Please enter missing fields.");
 	} else if (title && issue){
-		window.alert("Ticket created!");
-
+	//	window.alert("Ticket created!");
+console.log("URL Prefix in use:", urlPrefix);
 		storeTicket(email, title, issue);
 		console.log(email, title, issue);
 	} else {
@@ -37,9 +37,13 @@ function createTicket(){
 }
 
 document.getElementById("submitBtn").addEventListener("click", function(){
-	createTicket();
+console.log("calinng email");
 	emailExists();
-
+console.log("creating ticket");
+	createTicket();
+/*console.log("calling store ticket...");
+	storeTicket(email, title, issue);
+console.log("finished calling"); */
 });
 
 
@@ -89,7 +93,7 @@ console.log("IT ticket js file");
 
 function storeTicket(email, title, issue){
 	let reqUrl = urlPrefix + "/itticket?email=" + email + "&title=" + title + "&issue=" + issue;
-
+console.log("sending request to...", reqUrl);
 	fetch(reqUrl)
 		.then(response => {
 			if (!response.ok) {throw new Error("Networj response not ok.");}
@@ -101,6 +105,7 @@ function storeTicket(email, title, issue){
 		})
 		.catch(error => {
 			console.error("Error with fetch operation: ", error);
+			console.log(error);
 		});
 	// End fetch op
 }
