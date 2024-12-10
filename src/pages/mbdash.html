@@ -21,8 +21,14 @@
                 <a href="createBC.html"><button class="mbdashBtn" id="createBC">Create Bookclub</button></a>
                 <a href="editPF.html"><button class="mbdashBtn" id="editPF">Edit Profile</button></a>
 		<a href="editBC.html"><button class="mbdashBtn" id="editBC">Edit a Book Club</button></a>
+		<button class="mbdashBtn" id="delBC">Delete a Hosted Club</button>
             </div>
         </div>
+	
+	<div id="delBCForm" style="display:none">
+		<input type="text" id="delBCID">
+		<button type="button" id="delBCConfirm">Delete</button>
+	</div>
 	
 	<div id="clubsList"></div>
 
@@ -33,6 +39,7 @@
         </div>
 
 	<script src="mbdash.js"></script>
+	<script src="VM_IP.js"></script>
     </body>
 
 </html>

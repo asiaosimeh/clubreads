@@ -1,6 +1,6 @@
 // Script for the Member Dashboard page
 
-urlPrefix = "http://34.23.105.171";
+//urlPrefix = "http://34.23.105.171";
 
 let name = sessionStorage.getItem("name");
 
@@ -88,6 +88,53 @@ document.addEventListener ("DOMContentLoaded", function (){
 // Run the output command onload:
 loadInfo();
 
-document.getElementById("logout").addEventListener("click", function(){
+document.getElementById("logout").addEventListener("click", function() {
 	        window.location.href = "logout.html";
 });
+
+
+
+// If the 'deletc bc' button is clicked, show the deletion form:
+document.getElementById("delBC").addEventListener("click", function() {
+	document.getElementById("delBCForm").style.display = "block";
+
+});
+
+document.getElementById("delBCConfirm").addEventListener("click", function() {
+	let delID = document.getElementById("delBCID").value;
+
+	// Ensure the user can only delete clubs they host:
+	if (delID == ""){
+		document.getElementById("delBCForm").style.display = "none";
+	} else if (sessionStorage.getItem("clubIDList").split(",").includes(delID)){
+		console.log(sessionStorage.getItem("clubIDList").split(","));
+		let conf = window.confirm("Are you sure you want to delete book club " + delID + "?");
+		if (conf) {
+			reqUrl = urlPrefix + "/delclub?id=" + delID;
+			fetch(reqUrl)
+				.then(response => {
+					if(!response.ok) {throw new Error("Network response not ok.");}
+					return response.json();
+				})
+				.then(data => {
+					console.log("RECIEVED: ", data);
+					if (data.message == "success"){
+						window.alert("Deletion successful.");
+						window.location.href = "";
+					}
+				})
+				.catch(error => {
+					console.error("Error with fetch operation: ", error);
+				});
+			
+
+		} // End confirm if/else
+		
+		document.getElementById("delBCForm").style.display = "none";
+	} else {
+		window.alert("Invalid club ID.");
+	}
+});
+
+
+

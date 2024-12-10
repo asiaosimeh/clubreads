@@ -187,7 +187,7 @@ function parseSearch(res, search){
 
 
 function rtrvDB(topic, author, loc, day, callback) {
-	let queryString = "SELECT Clubs.club_id, Clubs.club_name, Clubs.book_name, Clubs.author, Clubs.genre, Clubs.meeting_day, Clubs.region, Users.public_email, Users.first_name, Users.last_name, Users.bio FROM Clubs INNER JOIN Users ON Clubs.hosted = Users.user_id;"; // Populate later with the SQL query string
+	let queryString = "SELECT Clubs.club_id, Clubs.club_name, Clubs.book_name, Clubs.author, Clubs.genre, Clubs.meeting_day, Clubs.region, Users.public_email, Users.first_name, Users.last_name, Users.bio FROM Clubs INNER JOIN Users ON Clubs.hosted = Users.user_id "; // Populate later with the SQL query string
 
 	/////
 	// Check what fields were passed by the user, and create the SQL query accordingly:
@@ -513,6 +513,27 @@ function editPF(res,query){
 }
 
 
+function delClub(res, query) {
+	console.log("DELETING CLUB: ", query.id);
+
+	let queryString = "DELETE FROM Clubs WHERE club_id=" + query.id;
+
+	let connection_pool = mysql.createPool(connectionObj);
+	connection_pool.query(queryString, function (error, results) {
+		if (error) {
+			console.log("Error!", error);
+		} else {
+			console.log("Success!");
+			console.log(results);
+
+			res.writeHead(200, {'Content-Type':'text/plain'});
+			res.write(JSON.stringify({'message' : 'success'}));
+			res.end();
+		}
+	});
+}
+
+
 // Main function, decides which other function to call to server the client's request:
 serveStatic = function (req, res) {
 	q = url.parse(req.url, true);
@@ -527,6 +548,7 @@ serveStatic = function (req, res) {
 
 	// Add appropriate path prefix to files by the file type:
 	if (fileName == "/" || fileName == "/index.html") fileName = "./index.html"; // If no file name is specified in the query, send  the index page
+	else if (fileName == "VM_IP.js" || fileName == "/VM_IP.js") fileName = "./VM_IP.js";
 	else if (patternJS.test(fileName)) fileName = "./src/js" + fileName;
 	else if (patternCSS.test(fileName)) fileName = "./src/css" + fileName;
 	else if (patternHTML.test(fileName)) fileName = "./src/pages" + fileName;
@@ -564,6 +586,9 @@ serveStatic = function (req, res) {
 			break;
 		case "/updateProfile":
 			editPF(res, q.query);
+			break;
+		case "/delclub":
+			delClub(res, q.query);
 			break;
 		case "/favicon.ico":
 			break;

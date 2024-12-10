@@ -4,7 +4,7 @@
  *
  */
 
-let urlPrefix = "http://34.23.105.171";
+//let urlPrefix = "http://35.196.73.111";
 
 function myclick(){
 	let topic = document.getElementById("genre").value;
@@ -61,12 +61,15 @@ function pasteData(dataList){
 			console.log("Empty response.");
 			outputBin.innerHTML = "<h2>No results found.</h2>";
 	} else{
-			for (let i = 0; i < dataList.length; i++){
+		for (let i = 0; i < dataList.length; i++){
 			let e = dataList[i];
-
-			outputBin.innerHTML += `<div class="club-container"><h3 class="club-name" onclick="toggleDetails('club-${i}')">${e[1]}</h3><div id="club-${i}" class="club-details" style="display: none;"><p><strong>Meets:</strong> ${e[5]}</p><p><strong>Region:</strong> ${e[6]}</p><p><strong>Current book:</strong> ${e[2]} by ${e[3]}</p><h4>Host Information: </h4><p><strong>Name:</strong> ${e.first_name || "N/A"} ${e.last_name ||""}</p><p><strong>Contact:</strong> ${e.public_email || "N/A"}</p><p><strong>Bio:</strong>${e.bio ||"No bio available"}</p></div></div>`;
-	console.log(e);
-	}
+			
+			//outputBin.innerHTML += `<div class="club-container"><h3 class="club-name" onclick="toggleDetails('club-${i}')">${e[1]}</h3><div id="club-${i}" class="club-details" style="display: none;"><p><strong>Meets:</strong> ${e[5]}</p><p><strong>Region:</strong> ${e[6]}</p><p><strong>Current book:</strong> ${e[2]} by ${e[3]}</p><h4>Host Information: </h4><p><strong>Name:</strong> ${e.first_name || "N/A"} ${e.last_name ||""}</p><p><strong>Contact:</strong> ${e.public_email || "N/A"}</p><p><strong>Bio:</strong>${e.bio ||"No bio available"}</p></div></div>`;
+			
+			console.log(e);
+			
+			outputBin.innerHTML += "<details><summary style='font-size:1.2em'>" + e[1] + "</summary><p><strong>Book:</strong> " + e[2] + ", by " + e[3] + "<br><br><strong>Genre: </strong> " + e[4] + "<br><br><strong>Meeting Day:</strong> " + e[5] + "<br><br>----------------------<br><br><strong>Club Host:</strong> " + e[8] + " " + e[9] + "<br><br> <strong>Email:</strong> " + e[7] + "</p></details><br>";
+		}
 	} // End if/else-if/else block
 }
 
