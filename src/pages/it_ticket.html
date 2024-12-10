@@ -55,14 +55,16 @@
         }
 
         #submitBtn {
-            width: 100%;
+            max-width: 400px;
             padding: 12px;
-            background-color: #81241f;
-            color: white;
+            background-color: white;
+            color: #81241f;
             border: none;
             border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
+	    display: block;
+	    margin: 0 auto;
         }
 
         #submitBtn:hover {
@@ -122,11 +124,11 @@
 
             <p id="results">Click the button to submit your IT ticket</p>
 
-            <button type="submit" id="submitBtn">Create IT Ticket</button>
+
            <!-- <button type="button" id="listTickets" class="header-btn">List all IT Tickets</button> -->
         </form>
     </div>
-
+            <button type="submit" id="submitBtn">Create IT Ticket</button>
     <script src="VM_IP.js"></script>
     <script src="it_ticketFunc.js"></script>
 
