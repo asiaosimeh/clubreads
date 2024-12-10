@@ -7,8 +7,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Adamina&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <title>ClubReads IT Ticket Form Page</title>
+    <title>ClubReads</title>
     <style>
+	body{
+	font-family: 'Adamina', serif;
+        margin: 0;
+        padding: 0;
+        /*background-color: #f4f4f9;*/
+	background-image: url('bookPages.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;	
+	}
+
         .ticket-container {
             max-width: 400px;
             margin: 30px auto;
@@ -112,11 +123,12 @@
             <p id="results">Click the button to submit your IT ticket</p>
 
             <button type="submit" id="submitBtn">Create IT Ticket</button>
-            <button type="button" id="listTickets" class="header-btn">List all IT Tickets</button>
+           <!-- <button type="button" id="listTickets" class="header-btn">List all IT Tickets</button> -->
         </form>
     </div>
 
-    <script src="it_ticketFunc.js"></script>
     <script src="VM_IP.js"></script>
+    <script src="it_ticketFunc.js"></script>
+
 </body>
 </html>

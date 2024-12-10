@@ -13,7 +13,11 @@
         font-family: 'Adamina', serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f9;
+        /*background-color: #f4f4f9;*/
+	background-image: url('bookPages.png');
+	background-size: 110% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
     }
 
     #header {
@@ -82,6 +86,10 @@
     }
 
     #submit {
+	margin-bottom: 10px;
+}
+
+    #submit, #backToMbdash {
         background-color: #81241f;
         color: white;
         border: none;
@@ -188,7 +196,8 @@
         </form>
     </main>
 
-    <script src="createBC.js"></script>
     <script src="VM_IP.js"></script>
+    <script src="createBC.js"></script>
+
 </body>
 </html>
