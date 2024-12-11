@@ -102,6 +102,12 @@ console.log("sending request to...", reqUrl);
 		.then(data => {
 			console.log("RECIEVED: ", data);
 			window.alert("Ticket sent.");
+				let userID = sessionStorage.getItem("userid");
+					if (userID) {
+						window.location.href = "mbdash.html";
+					} else {
+						window.location.href = "/";
+					}
 		})
 		.catch(error => {
 			console.error("Error with fetch operation: ", error);
