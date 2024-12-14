@@ -1,1 +1,1 @@
-let urlPrefix = "http://34.23.105.171";
+let urlPrefix = "http://10.128.0.2";
